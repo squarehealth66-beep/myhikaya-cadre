@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Créer mon cadre — MyHikaya</title>
+
+    <meta name="description" content="Créez votre cadre personnalisé MyHikaya.">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f6f3;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        header {
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+
+        .navbar {
+            max-width: 1100px;
+            margin: auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            text-decoration: none;
+            font-size: 28px;
+            font-weight: 800;
+            color: #222;
+        }
+
+        .logo span {
+            color: #f39c12;
+        }
+
+        .back {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .page {
+            max-width: 950px;
+            margin: auto;
+            padding: 45px 20px 80px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .intro h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .intro h1 span {
+            color: #f39c12;
+        }
+
+        .intro p {
+            color: #777;
+            font-size: 18px;
+        }
+
+        .progress {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+
+        .progress-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #999;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .progress-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .progress-item.active {
+            color: #222;
+        }
+
+        .progress-item.active .progress-number {
+            background: #f39c12;
+            color: white;
+        }
+
+        .card {
+            background: white;
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.07);
+            margin-bottom: 25px;
+        }
+
+        .step-title {
+            font-size: 27px;
+            margin-bottom: 8px;
+        }
+
+        .step-description {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .themes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .theme-option {
+            border: 2px solid #eee;
+            border-radius: 18px;
+            padding: 25px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            background: white;
+        }
+
+        .theme-option:hover {
+            border-color: #f39c12;
+            transform: translateY(-2px);
+        }
+
+        .theme-option.selected {
+            border-color: #f39c12;
+            background: #fff8ed;
+        }
+
+        .theme-icon {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .theme-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .theme-description {
+            color: #888;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .field {
+            margin-bottom: 25px;
+        }
+
+        .field label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 9px;
+        }
+
+        .field input[type="text"] {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid #ddd;
+            border-radius: 13px;
+            font-size: 17px;
+            outline: none;
+        }
+
+        .field input[type="text"]:focus {
+            border-color: #f39c12;
+        }
+
+        .photo-zone {
+            border: 2px dashed #ccc;
+            border-radius: 20px;
+            padding: 35px 20px;
+            text-align: center;
+            cursor: pointer;
+            background: #fafafa;
+        }
+
+        .photo-zone:hover {
+            border-color: #f39c12;
+            background: #fffaf2;
+        }
+
+        .photo-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .photo-zone strong {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .photo-zone span {
+            color: #888;
+            font-size: 14px;
+        }
+
+        #photoInput {
+            display: none;
+        }
+
+        .preview {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .preview img {
+            max-width: 280px;
+            max-height: 280px;
+            border-radius: 18px;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        .preview-name {
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        .format-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .format {
+            border: 2px solid #eee;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .format:hover {
+            border-color: #f39c12;
+        }
+
+        .format.selected {
+            border-color: #f39c12;
+            background: #fff8ed;
+        }
+
+        .format h3 {
+            font-size: 25px;
+        }
+
+        .format .price {
+            color: #f39c12;
+            font-size: 30px;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+
+        .format p {
+            color: #777;
+        }
+
+        .summary {
+            background: #f7f7f7;
+            border-radius: 18px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 7px 0;
+            gap: 20px;
+        }
+
+        .summary-row strong {
+            text-align: right;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 30px;
+            padding: 15px 25px;
+        }
+
+        .btn-secondary {
+            background: #eee;
+            color: #333;
+        }
+
+        .btn-primary {
+            background: #f39c12;
+            color: white;
+            box-shadow: 0 8px 25px rgba(243,156,18,0.22);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+        }
+
+        .generation {
+            display: none;
+            text-align: center;
+            padding: 45px 20px;
+        }
+
+        .loader {
+            width: 55px;
+            height: 55px;
+            border: 5px solid #eee;
+            border-top-color: #f39c12;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .generation h2 {
+            margin-bottom: 8px;
+        }
+
+        .generation p {
+            color: #777;
+        }
+
+        .result {
+            display: none;
+            text-align: center;
+        }
+
+        .result-frame {
+            max-width: 520px;
+            margin: 25px auto;
+            padding: 15px;
+            background: #222;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        .result-inside {
+            background: white;
+            min-height: 300px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .result-inside img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .result-inside h2 {
+            font-size: 28px;
+            color: #222;
+        }
+
+        .success {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-icon {
+            font-size: 65px;
+            margin-bottom: 15px;
+        }
+
+        .success h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .success p {
+            color: #777;
+        }
+
+        @media (max-width: 650px) {
+
+            .intro h1 {
+                font-size: 34px;
+            }
+
+            .card {
+                padding: 25px 20px;
+            }
+
+            .themes,
+            .format-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .progress {
+                justify-content: flex-start;
+            }
+
+            .buttons {
+                flex-direction: column-reverse;
+            }
+
+            .buttons button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="navbar">
+
+        <a href="index.html" class="logo">
+            My<span>Hikaya</span>
+        </a>
+
+        <a href="index.html" class="back">
+            ← Retour
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="page">
+
+    <div class="intro">
+
+        <h1>
+            Créons son <span>aventure</span>
+        </h1>
+
+        <p>
+            Personnalisez votre cadre MyHikaya en quelques étapes.
+        </p>
+
+    </div>
+
+
+    <div class="progress">
+
+        <div class="progress-item active" id="progress1">
+            <div class="progress-number">1</div>
+            Thème
+        </div>
+
+        <span>→</span>
+
+        <div class="progress-item" id="progress2">
+            <div class="progress-number">2</div>
+            Prénom
+        </div>
+
+        <span>→</span>
+
+        <div class="progress-item" id="progress3">
+            <div class="progress-number">3</div>
+            Photo
+        </div>
+
+        <span>→</span>
+
+        <div class="progress-item" id="progress4">
+            <div class="progress-number">4</div>
+            Aperçu
+        </div>
+
+        <span>→</span>
+
+        <div class="progress-item" id="progress5">
+            <div class="progress-number">5</div>
+            Format
+        </div>
+
+    </div>
+
+
+    <!-- ÉTAPE 1 -->
+
+    <section class="card" id="step1">
+
+        <h2 class="step-title">
+            ① Choisissez son univers
+        </h2>
+
+        <p class="step-description">
+            Sélectionnez le thème qui correspond le mieux à votre enfant.
+        </p>
+
+
+        <div class="themes">
+
+            <div class="theme-option" onclick="selectTheme(this, 'Explorateur de l’espace')">
+
+                <div class="theme-icon">🚀</div>
+
+                <div class="theme-name">
+                    Explorateur de l’espace
+                </div>
+
+                <div class="theme-description">
+                    Une aventure parmi les étoiles.
+                </div>
+
+            </div>
+
+
+            <div class="theme-option" onclick="selectTheme(this, 'Monde des dinosaures')">
+
+                <div class="theme-icon">🦖</div>
+
+                <div class="theme-name">
+                    Monde des dinosaures
+                </div>
+
+                <div class="theme-description">
+                    Une exploration préhistorique.
+                </div>
+
+            </div>
+
+
+            <div class="theme-option" onclick="selectTheme(this, 'Royaume fantastique')">
+
+                <div class="theme-icon">🏰</div>
+
+                <div class="theme-name">
+                    Royaume fantastique
+                </div>
+
+                <div class="theme-description">
+                    Un univers rempli d'aventures.
+                </div>
+
+            </div>
+
+
+            <div class="theme-option" onclick="selectTheme(this, 'Petit pilote')">
+
+                <div class="theme-icon">🏎️</div>
+
+                <div class="theme-name">
+                    Petit pilote
+                </div>
+
+                <div class="theme-description">
+                    Une aventure à toute vitesse.
+                </div>
+
+            </div>
+
+
+            <div class="theme-option" onclick="selectTheme(this, 'Aventure animale')">
+
+                <div class="theme-icon">🦁</div>
+
+                <div class="theme-name">
+                    Aventure animale
+                </div>
+
+                <div class="theme-description">
+                    Une exploration au cœur de la nature.
+                </div>
+
+            </div>
+
+
+            <div class="theme-option" onclick="selectTheme(this, 'Explorateur des océans')">
+
+                <div class="theme-icon">🌊</div>
+
+                <div class="theme-name">
+                    Explorateur des océans
+                </div>
+
+                <div class="theme-description">
+                    Une aventure sous-marine.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="buttons">
+
+            <span></span>
+
+            <button class="btn-primary" onclick="nextStep(1)">
+                Continuer →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ÉTAPE 2 -->
+
+    <section class="card" id="step2" style="display:none;">
+
+        <h2 class="step-title">
+            ② Le prénom de l'enfant
+        </h2>
+
+        <p class="step-description">
+            Entrez le prénom qui apparaîtra sur le cadre.
+        </p>
+
+
+        <div class="field">
+
+            <label for="childName">
+                Prénom
+            </label>
+
+            <input
+                type="text"
+                id="childName"
+                placeholder="Exemple : Yanis"
+                maxlength="30"
+            >
+
+        </div>
+
+
+        <div class="buttons">
+
+            <button class="btn-secondary" onclick="previousStep(2)">
+                ← Retour
+            </button>
+
+            <button class="btn-primary" onclick="nextStep(2)">
+                Continuer →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ÉTAPE 3 -->
+
+    <section class="card" id="step3" style="display:none;">
+
+        <h2 class="step-title">
+            ③ Ajoutez sa photo
+        </h2>
+
+        <p class="step-description">
+            Choisissez une photo claire de l'enfant.
+        </p>
+
+
+        <label class="photo-zone" for="photoInput">
+
+            <div class="photo-icon">
+                📸
+            </div>
+
+            <strong>
+                Ajouter une photo
+            </strong>
+
+            <span>
+                Cliquez ici pour choisir une photo
+            </span>
+
+        </label>
+
+
+        <input
+            type="file"
+            id="photoInput"
+            accept="image/*"
+            capture="user"
+        >
+
+
+        <div class="preview" id="photoPreview">
+
+            <img id="previewImage" src="" alt="Aperçu">
+
+            <div class="preview-name" id="previewName"></div>
+
+        </div>
+
+
+        <div class="buttons">
+
+            <button class="btn-secondary" onclick="previousStep(3)">
+                ← Retour
+            </button>
+
+            <button class="btn-primary" onclick="nextStep(3)">
+                Continuer →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- GÉNÉRATION -->
+
+    <section class="card generation" id="generation">
+
+        <div class="loader"></div>
+
+        <h2>
+            Préparation de votre création…
+        </h2>
+
+        <p>
+            MyHikaya prépare votre aperçu personnalisé.
+        </p>
+
+    </section>
+
+
+    <!-- ÉTAPE 4 -->
+
+    <section class="card result" id="step4">
+
+        <h2 class="step-title">
+            ④ Votre aperçu
+        </h2>
+
+        <p class="step-description">
+            Voici un aperçu de votre création MyHikaya.
+        </p>
+
+
+        <div class="result-frame">
+
+            <div class="result-inside">
+
+                <img id="resultImage" src="" alt="Création MyHikaya">
+
+                <h2 id="resultName">
+                    Prénom
+                </h2>
+
+                <p id="resultTheme">
+                    Thème
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <p style="color:#777;">
+            Aperçu de démonstration — la génération IA sera connectée dans une prochaine étape.
+        </p>
+
+
+        <div class="buttons">
+
+            <button class="btn-secondary" onclick="backToPhoto()">
+                ← Modifier
+            </button>
+
+            <button class="btn-primary" onclick="goToFormat()">
+                Choisir le format →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ÉTAPE 5 -->
+
+    <section class="card" id="step5" style="display:none;">
+
+        <h2 class="step-title">
+            ⑤ Choisissez votre format
+        </h2>
+
+        <p class="step-description">
+            Sélectionnez le format de votre cadre.
+        </p>
+
+
+        <div class="format-grid">
+
+            <div class="format" onclick="selectFormat(this, 'A4', '1 200 DA')">
+
+                <h3>A4</h3>
+
+                <div class="price">
+                    1 200 DA
+                </div>
+
+                <p>
+                    21 × 29,7 cm
+                </p>
+
+            </div>
+
+
+            <div class="format" onclick="selectFormat(this, 'A3', '2 200 DA')">
+
+                <h3>A3</h3>
+
+                <div class="price">
+                    2 200 DA
+                </div>
+
+                <p>
+                    29,7 × 42 cm
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="summary">
+
+            <div class="summary-row">
+                <span>Prénom</span>
+                <strong id="summaryName">—</strong>
+            </div>
+
+            <div class="summary-row">
+                <span>Thème</span>
+                <strong id="summaryTheme">—</strong>
+            </div>
+
+            <div class="summary-row">
+                <span>Format</span>
+                <strong id="summaryFormat">—</strong>
+            </div>
+
+            <div class="summary-row">
+                <span>Total</span>
+                <strong id="summaryPrice">—</strong>
+            </div>
+
+        </div>
+
+
+        <div class="buttons">
+
+            <button class="btn-secondary" onclick="backToPreview()">
+                ← Retour
+            </button>
+
+            <button class="btn-primary" onclick="validateOrder()">
+                Valider ma création →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONFIRMATION -->
+
+    <section class="card success" id="success">
+
+        <div class="success-icon">
+            🎉
+        </div>
+
+        <h2>
+            Votre création est prête !
+        </h2>
+
+        <p>
+            La prochaine étape sera la saisie de vos coordonnées
+            pour finaliser votre commande.
+        </p>
+
+        <br>
+
+        <a href="index.html" class="main-button">
+            Retour à l'accueil
+        </a>
+
+    </section>
+
+</main>
+
+
+<script>
+
+    let selectedTheme = "";
+    let selectedFormat = "";
+    let selectedPrice = "";
+    let photoData = "";
+
+
+    function selectTheme(element, theme) {
+
+        document.querySelectorAll(".theme-option").forEach(function(item) {
+            item.classList.remove("selected");
+        });
+
+        element.classList.add("selected");
+
+        selectedTheme = theme;
+    }
+
+
+    function updateProgress(number) {
+
+        for (let i = 1; i <= 5; i++) {
+
+            const item = document.getElementById("progress" + i);
+
+            if (item) {
+                item.classList.toggle("active", i <= number);
+            }
+
+        }
+
+    }
+
+
+    function nextStep(currentStep) {
+
+        if (currentStep === 1) {
+
+            if (!selectedTheme) {
+                alert("Veuillez choisir un thème.");
+                return;
+            }
+
+            document.getElementById("step1").style.display = "none";
+            document.getElementById("step2").style.display = "block";
+
+            updateProgress(2);
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+            return;
+        }
+
+
+        if (currentStep === 2) {
+
+            const name = document.getElementById("childName").value.trim();
+
+            if (!name) {
+                alert("Veuillez entrer le prénom de l'enfant.");
+                return;
+            }
+
+            document.getElementById("step2").style.display = "none";
+            document.getElementById("step3").style.display = "block";
+
+            updateProgress(3);
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+            return;
+        }
+
+
+        if (currentStep === 3) {
+
+            if (!photoData) {
+                alert("Veuillez ajouter une photo.");
+                return;
+            }
+
+            document.getElementById("step3").style.display = "none";
+            document.getElementById("generation").style.display = "block";
+
+            updateProgress(4);
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+
+            setTimeout(function() {
+
+                document.getElementById("generation").style.display = "none";
+                document.getElementById("step4").style.display = "block";
+
+                document.getElementById("resultImage").src = photoData;
+                document.getElementById("resultName").textContent =
+                    document.getElementById("childName").value.trim();
+
+                document.getElementById("resultTheme").textContent =
+                    selectedTheme;
+
+            }, 1800);
+
+        }
+
+    }
+
+
+    function previousStep(currentStep) {
+
+        if (currentStep === 2) {
+
+            document.getElementById("step2").style.display = "none";
+            document.getElementById("step1").style.display = "block";
+
+            updateProgress(1);
+
+        }
+
+
+        if (currentStep === 3) {
+
+            document.getElementById("step3").style.display = "none";
+            document.getElementById("step2").style.display = "block";
+
+            updateProgress(2);
+
+        }
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    document.getElementById("photoInput").addEventListener("change", function(event) {
+
+        const file = event.target.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        if (!file.type.startsWith("image/")) {
+            alert("Veuillez choisir une image.");
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+
+            photoData = e.target.result;
+
+            document.getElementById("previewImage").src = photoData;
+
+            document.getElementById("previewName").textContent =
+                "Photo sélectionnée ✓";
+
+            document.getElementById("photoPreview").style.display = "block";
+
+        };
+
+        reader.readAsDataURL(file);
+
+    });
+
+
+    function backToPhoto() {
+
+        document.getElementById("step4").style.display = "none";
+        document.getElementById("step3").style.display = "block";
+
+        updateProgress(3);
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    function goToFormat() {
+
+        document.getElementById("step4").style.display = "none";
+        document.getElementById("step5").style.display = "block";
+
+        document.getElementById("summaryName").textContent =
+            document.getElementById("childName").value.trim();
+
+        document.getElementById("summaryTheme").textContent =
+            selectedTheme;
+
+        updateProgress(5);
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    function selectFormat(element, format, price) {
+
+        document.querySelectorAll(".format").forEach(function(item) {
+            item.classList.remove("selected");
+        });
+
+        element.classList.add("selected");
+
+        selectedFormat = format;
+        selectedPrice = price;
+
+        document.getElementById("summaryFormat").textContent = format;
+        document.getElementById("summaryPrice").textContent = price;
+
+    }
+
+
+    function backToPreview() {
+
+        document.getElementById("step5").style.display = "none";
+        document.getElementById("step4").style.display = "block";
+
+        updateProgress(4);
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    function validateOrder() {
+
+        if (!selectedFormat) {
+
+            alert("Veuillez choisir un format.");
+            return;
+
+        }
+
+        document.getElementById("step5").style.display = "none";
+        document.getElementById("success").style.display = "block";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+</script>
+
+</body>
+</html>
