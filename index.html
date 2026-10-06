@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MyHikaya Cadre — Un prénom. Une aventure. Un souvenir.</title>
+
+    <meta name="description" content="Créez un cadre personnalisé unique pour votre enfant avec son prénom, sa photo et son univers préféré.">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8f7f4;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        header {
+            background: white;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: auto;
+            padding: 18px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: #222;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #f39c12;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: #f39c12;
+        }
+
+        .nav-button {
+            background: #f39c12;
+            color: white !important;
+            padding: 12px 20px;
+            border-radius: 30px;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: auto;
+            padding: 80px 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .hero-text h1 {
+            font-size: 52px;
+            line-height: 1.1;
+            margin-bottom: 25px;
+        }
+
+        .hero-text h1 span {
+            color: #f39c12;
+        }
+
+        .hero-text p {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 30px;
+            max-width: 580px;
+        }
+
+        .main-button {
+            display: inline-block;
+            background: #f39c12;
+            color: white;
+            text-decoration: none;
+            padding: 17px 30px;
+            border-radius: 35px;
+            font-size: 17px;
+            font-weight: bold;
+            box-shadow: 0 8px 25px rgba(243, 156, 18, 0.25);
+        }
+
+        .main-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .hero-card {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        }
+
+        .frame-placeholder {
+            aspect-ratio: 4 / 3;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #e9eef5, #fff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+            color: #777;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .price-section {
+            background: white;
+            padding: 70px 25px;
+        }
+
+        .section-title {
+            text-align: center;
+            max-width: 750px;
+            margin: 0 auto 45px;
+        }
+
+        .section-title h2 {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .section-title p {
+            color: #777;
+            font-size: 18px;
+        }
+
+        .prices {
+            max-width: 850px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .price-card {
+            border: 1px solid #eee;
+            border-radius: 25px;
+            padding: 35px;
+            text-align: center;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .price-card h3 {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 38px;
+            font-weight: 800;
+            color: #f39c12;
+            margin: 15px 0;
+        }
+
+        .price-card p {
+            color: #777;
+        }
+
+        .steps {
+            max-width: 1100px;
+            margin: auto;
+            padding: 75px 25px;
+        }
+
+        .step-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .step {
+            background: white;
+            border-radius: 22px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .step-number {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #f39c12;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .step h3 {
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            color: #777;
+            font-size: 15px;
+        }
+
+        .themes {
+            background: white;
+            padding: 75px 25px;
+        }
+
+        .theme-grid {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .theme {
+            min-height: 180px;
+            border-radius: 25px;
+            padding: 30px;
+            display: flex;
+            align-items: flex-end;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #304ffe, #7c4dff);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        }
+
+        .theme:nth-child(2) {
+            background: linear-gradient(135deg, #795548, #c58b55);
+        }
+
+        .theme:nth-child(3) {
+            background: linear-gradient(135deg, #5d4037, #ff9800);
+        }
+
+        .theme:nth-child(4) {
+            background: linear-gradient(135deg, #263238, #546e7a);
+        }
+
+        .theme:nth-child(5) {
+            background: linear-gradient(135deg, #00897b, #26c6da);
+        }
+
+        .theme:nth-child(6) {
+            background: linear-gradient(135deg, #1565c0, #42a5f5);
+        }
+
+        .final-cta {
+            padding: 80px 25px;
+            text-align: center;
+            background: #222;
+            color: white;
+        }
+
+        .final-cta h2 {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .final-cta p {
+            color: #ccc;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        footer {
+            background: #171717;
+            color: #aaa;
+            text-align: center;
+            padding: 25px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 850px) {
+            nav a:not(.nav-button) {
+                display: none;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 50px;
+            }
+
+            .hero-text h1 {
+                font-size: 40px;
+            }
+
+            .prices {
+                grid-template-columns: 1fr;
+            }
+
+            .step-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .theme-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .navbar {
+                padding: 15px;
+            }
+
+            .logo {
+                font-size: 23px;
+            }
+
+            .hero-text h1 {
+                font-size: 34px;
+            }
+
+            .step-grid,
+            .theme-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .final-cta h2 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="navbar">
+
+        <a href="index.html" class="logo">
+            My<span>Hikaya</span>
+        </a>
+
+        <nav>
+            <a href="#themes">Nos thèmes</a>
+            <a href="#comment">Comment ça marche ?</a>
+            <a href="#prix">Tarifs</a>
+            <a href="#creer" class="nav-button">Créer mon cadre</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main>
+
+    <section class="hero">
+
+        <div class="hero-text">
+
+            <h1>
+                UN PRÉNOM.<br>
+                UNE <span>AVENTURE.</span><br>
+                UN SOUVENIR À ENCADRER.
+            </h1>
+
+            <p>
+                Créez un cadre personnalisé unique pour votre enfant
+                à partir de son prénom, de sa photo et de son univers préféré.
+            </p>
+
+            <a href="#creer" class="main-button">
+                ✨ CRÉER MON CADRE
+            </a>
+
+        </div>
+
+
+        <div class="hero-card">
+
+            <div class="frame-placeholder">
+                VOTRE CADRE PERSONNALISÉ<br>
+                <br>
+                Photo + prénom + univers
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="price-section" id="prix">
+
+        <div class="section-title">
+
+            <h2>Un souvenir à garder</h2>
+
+            <p>
+                Choisissez le format qui correspond le mieux à votre création.
+            </p>
+
+        </div>
+
+
+        <div class="prices">
+
+            <div class="price-card">
+
+                <h3>Format A4</h3>
+
+                <div class="price">
+                    1 200 DA
+                </div>
+
+                <p>
+                    21 × 29,7 cm
+                </p>
+
+            </div>
+
+
+            <div class="price-card">
+
+                <h3>Format A3</h3>
+
+                <div class="price">
+                    2 200 DA
+                </div>
+
+                <p>
+                    29,7 × 42 cm
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="steps" id="comment">
+
+        <div class="section-title">
+
+            <h2>Comment ça marche ?</h2>
+
+            <p>
+                Votre création en quelques étapes simples.
+            </p>
+
+        </div>
+
+
+        <div class="step-grid">
+
+            <div class="step">
+
+                <div class="step-number">1</div>
+
+                <h3>Choisissez</h3>
+
+                <p>
+                    Sélectionnez l'univers préféré de votre enfant.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">2</div>
+
+                <h3>Personnalisez</h3>
+
+                <p>
+                    Ajoutez son prénom et sa photo.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">3</div>
+
+                <h3>Découvrez</h3>
+
+                <p>
+                    Visualisez votre création personnalisée.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">4</div>
+
+                <h3>Recevez</h3>
+
+                <p>
+                    Choisissez votre format et validez votre commande.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="themes" id="themes">
+
+        <div class="section-title">
+
+            <h2>Des univers pour chaque enfant</h2>
+
+            <p>
+                Découvrez nos premiers univers créatifs MyHikaya.
+            </p>
+
+        </div>
+
+
+        <div class="theme-grid">
+
+            <div class="theme">
+                🚀 Explorateur de l'espace
+            </div>
+
+            <div class="theme">
+                🦖 Monde des dinosaures
+            </div>
+
+            <div class="theme">
+                🏰 Royaume fantastique
+            </div>
+
+            <div class="theme">
+                🏎️ Petit pilote
+            </div>
+
+            <div class="theme">
+                🦁 Aventure animale
+            </div>
+
+            <div class="theme">
+                🌊 Explorateur des océans
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="final-cta" id="creer">
+
+        <h2>Prêt à créer son aventure ?</h2>
+
+        <p>
+            Donnez à votre enfant un souvenir qui lui ressemble.
+        </p>
+
+        <a href="#" class="main-button">
+            ✨ CRÉER MON CADRE
+        </a>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    © 2026 MyHikaya — Un prénom. Une aventure. Un souvenir à encadrer.
+
+</footer>
+
+
+</body>
+</html>
