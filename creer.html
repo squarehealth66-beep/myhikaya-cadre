@@ -6,37 +6,93 @@
 
     <title>Créer mon cadre | MyHikaya</title>
 
+    <meta
+        name="description"
+        content="Créez un cadre personnalisé MyHikaya avec le prénom et la photo de votre enfant."
+    >
+
     <style>
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f7f8fc;
-            color: #222;
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #fffaf5 0%,
+                    #f7f8fc 45%,
+                    #f5f7fb 100%
+                );
+
+            color: #202020;
             min-height: 100vh;
         }
 
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
         header {
-            background: white;
-            border-bottom: 1px solid #eee;
-            padding: 18px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+
+            background: rgba(255,255,255,0.96);
+
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid #eeeeee;
+
+            padding:
+                16px
+                clamp(18px, 5vw, 70px);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            box-shadow:
+                0 3px 18px rgba(0,0,0,0.04);
         }
 
         .logo {
-            font-size: 28px;
-            font-weight: 800;
-            color: #222;
             text-decoration: none;
+
+            font-size: clamp(24px, 3vw, 30px);
+
+            font-weight: 900;
+
+            letter-spacing: -1px;
+
+            color: #202020;
         }
 
         .logo span {
@@ -45,244 +101,528 @@
 
         .back-home {
             text-decoration: none;
+
             color: #555;
-            font-weight: 600;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            transition: 0.2s;
         }
 
-        .container {
-            width: 92%;
-            max-width: 900px;
-            margin: 40px auto 70px;
+        .back-home:hover {
+            color: #ff7a00;
         }
+
+
+        /* =========================================================
+           CONTAINER
+        ========================================================= */
+
+        .container {
+            width: min(94%, 960px);
+
+            margin:
+                40px
+                auto
+                80px;
+        }
+
+
+        /* =========================================================
+           TITRE
+        ========================================================= */
 
         .page-title {
             text-align: center;
-            margin-bottom: 35px;
+
+            margin-bottom: 38px;
         }
 
         .page-title h1 {
-            font-size: 38px;
-            margin-bottom: 10px;
+            font-size:
+                clamp(30px, 5vw, 46px);
+
+            line-height: 1.1;
+
+            font-weight: 900;
+
+            letter-spacing: -1px;
+
+            margin-bottom: 12px;
         }
 
         .page-title p {
-            color: #666;
-            font-size: 17px;
+            color: #707070;
+
+            font-size:
+                clamp(15px, 2vw, 18px);
         }
 
-        /* PROGRESSION */
+
+        /* =========================================================
+           PROGRESSION
+        ========================================================= */
 
         .progress {
             display: flex;
+
             justify-content: space-between;
-            margin-bottom: 35px;
+
             position: relative;
+
+            margin-bottom: 35px;
+
+            padding: 0 3%;
         }
 
         .progress::before {
             content: "";
+
             position: absolute;
+
+            left: 7%;
+            right: 7%;
             top: 18px;
-            left: 5%;
-            right: 5%;
+
             height: 3px;
-            background: #ddd;
+
+            background: #dedede;
+
             z-index: 0;
         }
 
         .progress-step {
-            position: relative;
-            z-index: 1;
             width: 16.66%;
+
+            position: relative;
+
+            z-index: 1;
+
             text-align: center;
         }
 
         .circle {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: #ddd;
-            color: #666;
+            width: 38px;
+            height: 38px;
+
+            margin: auto;
+
             display: flex;
+
             align-items: center;
             justify-content: center;
-            margin: auto;
-            font-weight: bold;
-            background: white;
-            border: 3px solid #ddd;
+
+            border-radius: 50%;
+
+            background: #ffffff;
+
+            border: 3px solid #dedede;
+
+            color: #888;
+
+            font-weight: 800;
+
+            transition: 0.25s;
         }
 
         .progress-step.active .circle {
             background: #ff7a00;
+
             border-color: #ff7a00;
+
             color: white;
+
+            box-shadow:
+                0 5px 15px rgba(255,122,0,0.25);
         }
 
         .progress-step.completed .circle {
-            background: #28a745;
-            border-color: #28a745;
+            background: #25a65a;
+
+            border-color: #25a65a;
+
             color: white;
         }
 
         .progress-label {
             margin-top: 8px;
+
             font-size: 11px;
+
+            font-weight: 700;
+
             color: #777;
         }
 
-        /* CARD */
+
+        /* =========================================================
+           MAIN CARD
+        ========================================================= */
 
         .card {
             background: white;
-            border-radius: 20px;
-            padding: 35px;
-            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+
+            border-radius: 24px;
+
+            padding:
+                clamp(22px, 5vw, 42px);
+
+            box-shadow:
+                0 18px 55px rgba(0,0,0,0.08);
+
+            border: 1px solid #eeeeee;
         }
+
+
+        /* =========================================================
+           STEPS
+        ========================================================= */
 
         .step {
             display: none;
+
+            animation:
+                fadeIn 0.3s ease;
         }
 
         .step.active {
             display: block;
         }
 
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .step h2 {
             text-align: center;
-            font-size: 28px;
-            margin-bottom: 12px;
+
+            font-size:
+                clamp(24px, 4vw, 31px);
+
+            margin-bottom: 10px;
+
+            font-weight: 900;
         }
 
         .step-description {
             text-align: center;
+
             color: #777;
+
+            line-height: 1.6;
+
             margin-bottom: 30px;
         }
 
-        /* THEMES */
+
+        /* =========================================================
+           THEMES
+        ========================================================= */
 
         .themes-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
             gap: 18px;
         }
 
         .theme {
-            border: 2px solid #eee;
-            border-radius: 15px;
+            background: #fff;
+
+            border: 2px solid #eeeeee;
+
+            border-radius: 18px;
+
             padding: 25px 15px;
+
             text-align: center;
+
             cursor: pointer;
-            transition: 0.2s;
-            background: white;
+
+            transition:
+                transform 0.2s,
+                border-color 0.2s,
+                background 0.2s,
+                box-shadow 0.2s;
         }
 
         .theme:hover {
-            border-color: #ff7a00;
-            transform: translateY(-3px);
+            transform: translateY(-4px);
+
+            border-color: #ffb36d;
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.06);
         }
 
         .theme.selected {
             border-color: #ff7a00;
+
             background: #fff7ef;
+
+            box-shadow:
+                0 8px 25px rgba(255,122,0,0.12);
         }
 
         .theme-icon {
-            font-size: 45px;
+            font-size: 48px;
+
             margin-bottom: 12px;
         }
 
         .theme-name {
-            font-weight: 700;
-            font-size: 16px;
+            font-size: 15px;
+
+            font-weight: 800;
+
+            line-height: 1.35;
         }
 
-        /* FORM */
+
+        /* =========================================================
+           INPUTS
+        ========================================================= */
 
         .input-group {
             margin-bottom: 22px;
         }
 
-        label {
+        label.field-label {
             display: block;
-            font-weight: 700;
+
+            font-weight: 800;
+
             margin-bottom: 8px;
         }
 
         input,
         select {
             width: 100%;
-            padding: 15px;
+
+            padding: 15px 16px;
+
+            border-radius: 12px;
+
             border: 2px solid #e5e5e5;
-            border-radius: 10px;
-            font-size: 16px;
-            outline: none;
+
             background: white;
+
+            font-size: 16px;
+
+            color: #222;
+
+            outline: none;
+
+            transition: 0.2s;
         }
 
         input:focus,
         select:focus {
             border-color: #ff7a00;
+
+            box-shadow:
+                0 0 0 4px rgba(255,122,0,0.08);
         }
 
-        /* PHOTO */
 
-        .photo-zone {
-            border: 3px dashed #ddd;
-            border-radius: 18px;
-            padding: 40px 20px;
+        /* =========================================================
+           PHOTO OPTIONS
+        ========================================================= */
+
+        .photo-options {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+
+            margin-top: 10px;
+        }
+
+        .photo-option {
+            display: block;
+
+            text-decoration: none;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #ffffff,
+                    #fffaf6
+                );
+
+            border: 3px solid #eeeeee;
+
+            border-radius: 20px;
+
+            padding: 30px 20px;
+
             text-align: center;
+
             cursor: pointer;
-            transition: 0.2s;
+
+            transition:
+                transform 0.2s,
+                border-color 0.2s,
+                box-shadow 0.2s;
         }
 
-        .photo-zone:hover {
+        .photo-option:hover {
+            transform: translateY(-4px);
+
             border-color: #ff7a00;
-            background: #fffaf5;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.08);
         }
 
-        .photo-icon {
+        .photo-option-icon {
             font-size: 55px;
+
             margin-bottom: 15px;
         }
 
-        #photoInput {
-            display: none;
+        .photo-option h3 {
+            font-size: 20px;
+
+            margin-bottom: 8px;
+        }
+
+        .photo-option p {
+            color: #777;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================================
+           PHOTO RESULT
+        ========================================================= */
+
+        .photo-result {
+            margin-top: 25px;
+
+            padding: 22px;
+
+            border-radius: 18px;
+
+            background: #f7f8fc;
+
+            text-align: center;
+
+            min-height: 100px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+        .photo-result-placeholder {
+            color: #888;
+
+            font-size: 14px;
         }
 
         .photo-preview {
-            max-width: 280px;
-            max-height: 280px;
-            border-radius: 15px;
-            margin: 20px auto 0;
             display: none;
+
+            width: min(280px, 100%);
+
+            height: 280px;
+
             object-fit: cover;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.14);
+
+            border: 5px solid white;
         }
 
-        /* GENERATION */
+        .change-photo {
+            display: none;
+
+            margin-top: 15px;
+
+            background: white;
+
+            border: 1px solid #ddd;
+
+            border-radius: 9px;
+
+            padding: 9px 14px;
+
+            font-weight: 700;
+
+            color: #555;
+        }
+
+        .change-photo:hover {
+            border-color: #ff7a00;
+
+            color: #ff7a00;
+        }
+
+
+        /* =========================================================
+           LOADING
+        ========================================================= */
 
         .loading {
             text-align: center;
+
             padding: 60px 20px;
         }
 
         .loader {
-            width: 55px;
-            height: 55px;
-            border: 5px solid #eee;
-            border-top-color: #ff7a00;
+            width: 58px;
+            height: 58px;
+
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 25px;
+
+            border:
+                5px solid #eeeeee;
+
+            border-top-color: #ff7a00;
+
+            animation:
+                spin 0.9s linear infinite;
+
+            margin:
+                0 auto
+                25px;
         }
 
         @keyframes spin {
+
             to {
                 transform: rotate(360deg);
             }
         }
 
-        /* PREVIEW */
+
+        /* =========================================================
+           PREVIEW
+        ========================================================= */
 
         .preview-box {
             text-align: center;
@@ -290,98 +630,165 @@
 
         .creation-preview {
             width: 100%;
-            max-width: 600px;
-            min-height: 320px;
-            margin: 20px auto;
-            border-radius: 18px;
-            padding: 40px;
-            background: linear-gradient(135deg, #fff4e8, #eef6ff);
+
+            max-width: 620px;
+
+            min-height: 370px;
+
+            margin:
+                25px
+                auto;
+
+            padding: 40px 20px;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff1df,
+                    #edf6ff
+                );
+
             display: flex;
+
             flex-direction: column;
+
             align-items: center;
+
             justify-content: center;
-            box-shadow: inset 0 0 0 2px #eee;
+
+            box-shadow:
+                inset 0 0 0 2px #eeeeee;
         }
 
         .preview-photo {
-            width: 150px;
-            height: 150px;
+            width: 155px;
+            height: 155px;
+
             object-fit: cover;
+
             border-radius: 50%;
-            border: 5px solid white;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+
+            border: 6px solid white;
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.15);
+
             margin-bottom: 20px;
         }
 
         .preview-name {
-            font-size: 34px;
-            font-weight: 800;
+            font-size:
+                clamp(28px, 5vw, 38px);
+
+            font-weight: 900;
+
             margin-bottom: 8px;
         }
 
         .preview-theme {
             color: #ff7a00;
-            font-size: 20px;
-            font-weight: 700;
+
+            font-size: 19px;
+
+            font-weight: 800;
         }
 
-        /* FORMAT */
+
+        /* =========================================================
+           FORMATS
+        ========================================================= */
 
         .formats {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
             gap: 20px;
-            margin-top: 30px;
+
+            margin-top: 25px;
         }
 
         .format {
-            border: 3px solid #eee;
-            border-radius: 18px;
+            border: 3px solid #eeeeee;
+
+            border-radius: 20px;
+
             padding: 30px 20px;
+
             text-align: center;
+
             cursor: pointer;
+
             transition: 0.2s;
+
+            background: white;
         }
 
         .format:hover {
-            border-color: #ff7a00;
+            border-color: #ffb36d;
+
+            transform: translateY(-3px);
         }
 
         .format.selected {
             border-color: #ff7a00;
-            background: #fff8f1;
+
+            background: #fff7ef;
+
+            box-shadow:
+                0 10px 25px rgba(255,122,0,0.10);
         }
 
         .format h3 {
-            font-size: 28px;
-            margin-bottom: 8px;
+            font-size: 30px;
+
+            margin-bottom: 7px;
         }
 
         .format-size {
             color: #777;
+
             margin-bottom: 15px;
         }
 
         .format-price {
-            font-size: 27px;
-            font-weight: 800;
             color: #ff7a00;
+
+            font-size: 28px;
+
+            font-weight: 900;
         }
 
-        /* ORDER SUMMARY */
+
+        /* =========================================================
+           SUMMARY
+        ========================================================= */
 
         .order-summary {
             background: #f7f8fc;
-            border-radius: 15px;
-            padding: 22px;
-            margin: 25px 0;
+
+            border-radius: 17px;
+
+            padding: 20px;
+
+            margin:
+                25px
+                0;
         }
 
         .summary-row {
             display: flex;
+
             justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #e5e5e5;
+
+            gap: 20px;
+
+            padding: 11px 0;
+
+            border-bottom: 1px solid #e4e5e8;
         }
 
         .summary-row:last-child {
@@ -389,323 +796,692 @@
         }
 
         .summary-total {
-            font-size: 22px;
-            font-weight: 800;
             color: #ff7a00;
-            margin-top: 8px;
+
+            font-size: 21px;
+
+            font-weight: 900;
         }
 
-        /* BUTTONS */
+
+        /* =========================================================
+           BUTTONS
+        ========================================================= */
 
         .buttons {
             display: flex;
-            gap: 15px;
+
             justify-content: center;
+
+            gap: 14px;
+
             margin-top: 30px;
         }
 
-        button {
+        .btn {
             border: none;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 700;
-            border-radius: 10px;
+
+            border-radius: 12px;
+
             padding: 15px 25px;
+
+            font-size: 15px;
+
+            font-weight: 900;
+
+            transition: 0.2s;
         }
 
         .btn-primary {
             background: #ff7a00;
+
             color: white;
+
+            box-shadow:
+                0 7px 18px rgba(255,122,0,0.20);
         }
 
         .btn-primary:hover {
-            background: #e86f00;
+            background: #e86e00;
+
+            transform: translateY(-2px);
         }
 
         .btn-secondary {
-            background: #eee;
+            background: #eeeeee;
+
             color: #333;
         }
 
         .btn-secondary:hover {
-            background: #ddd;
+            background: #dddddd;
         }
 
-        .btn-full {
-            width: 100%;
-            margin-top: 10px;
-        }
 
-        /* PRIVACY */
+        /* =========================================================
+           PRIVACY
+        ========================================================= */
 
         .privacy {
-            background: #f4f8ff;
-            border-radius: 12px;
+            background: #f3f7ff;
+
+            border: 1px solid #dce8ff;
+
+            border-radius: 13px;
+
             padding: 15px;
-            margin-top: 20px;
+
             color: #555;
+
             font-size: 13px;
-            line-height: 1.5;
+
+            line-height: 1.6;
+
+            margin-top: 18px;
         }
 
-        /* CONFIRMATION */
+
+        /* =========================================================
+           SUCCESS
+        ========================================================= */
 
         .success {
             text-align: center;
-            padding: 30px 10px;
+
+            padding:
+                20px
+                5px
+                15px;
         }
 
         .success-icon {
             font-size: 70px;
-            margin-bottom: 20px;
+
+            margin-bottom: 15px;
         }
 
         .success h2 {
-            color: #28a745;
+            color: #25a65a;
+
+            margin-bottom: 12px;
+        }
+
+        .success-text {
+            color: #666;
+
+            line-height: 1.7;
+
+            max-width: 600px;
+
+            margin: auto;
         }
 
         .order-number {
             display: inline-block;
-            background: #f4f4f4;
-            padding: 12px 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            font-weight: 800;
+
+            background: #f3f3f3;
+
+            padding:
+                12px
+                20px;
+
+            border-radius: 11px;
+
+            margin:
+                20px
+                0;
+
             font-size: 20px;
+
+            font-weight: 900;
         }
 
-        /* RESPONSIVE */
+
+        /* =========================================================
+           MOBILE
+        ========================================================= */
 
         @media (max-width: 700px) {
 
             header {
-                padding: 15px 4%;
-            }
-
-            .logo {
-                font-size: 23px;
+                padding:
+                    14px
+                    18px;
             }
 
             .back-home {
-                font-size: 14px;
+                font-size: 13px;
             }
 
             .container {
                 width: 94%;
+
                 margin-top: 25px;
             }
 
-            .page-title h1 {
-                font-size: 30px;
+            .page-title {
+                margin-bottom: 28px;
             }
 
             .card {
-                padding: 22px;
+                border-radius: 18px;
+
+                padding:
+                    20px
+                    17px;
             }
 
             .themes-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 12px;
+            }
+
+            .theme {
+                padding:
+                    19px
+                    8px;
+            }
+
+            .theme-icon {
+                font-size: 38px;
+            }
+
+            .theme-name {
+                font-size: 13px;
+            }
+
+            .photo-options {
+                grid-template-columns: 1fr;
             }
 
             .formats {
                 grid-template-columns: 1fr;
             }
 
+            .progress {
+                padding: 0;
+            }
+
             .progress-label {
                 display: none;
+            }
+
+            .progress::before {
+                left: 6%;
+                right: 6%;
+            }
+
+            .circle {
+                width: 34px;
+                height: 34px;
+                font-size: 13px;
             }
 
             .buttons {
                 flex-direction: column;
             }
 
-            .buttons button {
+            .buttons .btn {
                 width: 100%;
             }
 
-            .preview-name {
-                font-size: 27px;
+            .summary-row {
+                font-size: 14px;
             }
+
         }
+
     </style>
 </head>
 
+
 <body>
 
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
 <header>
-    <a href="index.html" class="logo">My<span>Hikaya</span></a>
-    <a href="index.html" class="back-home">← Retour à l'accueil</a>
+
+    <a
+        href="index.html"
+        class="logo"
+    >
+        My<span>Hikaya</span>
+    </a>
+
+    <a
+        href="index.html"
+        class="back-home"
+    >
+        ← Retour à l'accueil
+    </a>
+
 </header>
+
+
 
 <main class="container">
 
+
+    <!-- =====================================================
+         TITRE
+    ====================================================== -->
+
     <div class="page-title">
-        <h1>✨ Créez votre cadre</h1>
-        <p>Une création unique pour un enfant unique.</p>
+
+        <h1>
+            ✨ Créez votre cadre
+        </h1>
+
+        <p>
+            Un prénom. Une aventure. Un souvenir à encadrer.
+        </p>
+
     </div>
 
-    <!-- PROGRESSION -->
+
+
+    <!-- =====================================================
+         PROGRESSION
+    ====================================================== -->
 
     <div class="progress">
 
-        <div class="progress-step active" id="progress1">
+        <div
+            class="progress-step active"
+            id="progress1"
+        >
             <div class="circle">1</div>
             <div class="progress-label">Thème</div>
         </div>
 
-        <div class="progress-step" id="progress2">
+        <div
+            class="progress-step"
+            id="progress2"
+        >
             <div class="circle">2</div>
             <div class="progress-label">Prénom</div>
         </div>
 
-        <div class="progress-step" id="progress3">
+        <div
+            class="progress-step"
+            id="progress3"
+        >
             <div class="circle">3</div>
             <div class="progress-label">Photo</div>
         </div>
 
-        <div class="progress-step" id="progress4">
+        <div
+            class="progress-step"
+            id="progress4"
+        >
             <div class="circle">4</div>
             <div class="progress-label">Création</div>
         </div>
 
-        <div class="progress-step" id="progress5">
+        <div
+            class="progress-step"
+            id="progress5"
+        >
             <div class="circle">5</div>
             <div class="progress-label">Format</div>
         </div>
 
-        <div class="progress-step" id="progress6">
+        <div
+            class="progress-step"
+            id="progress6"
+        >
             <div class="circle">6</div>
-            <div class="progress-label">Coordonnées</div>
+            <div class="progress-label">Commande</div>
         </div>
 
     </div>
 
+
+
     <div class="card">
 
-        <!-- ÉTAPE 1 -->
 
-        <section class="step active" id="step1">
+        <!-- =================================================
+             ÉTAPE 1 — THÈME
+        ================================================== -->
 
-            <h2>🎨 Choisissez un univers</h2>
+        <section
+            class="step active"
+            id="step1"
+        >
+
+            <h2>
+                🎨 Choisissez un univers
+            </h2>
 
             <p class="step-description">
-                Choisissez le thème qui correspond le mieux à votre enfant.
+                Sélectionnez l'univers que vous souhaitez pour votre création.
             </p>
+
 
             <div class="themes-grid">
 
-                <div class="theme" onclick="selectTheme(this, 'Explorateur de l’espace')">
-                    <div class="theme-icon">🚀</div>
-                    <div class="theme-name">Explorateur de l’espace</div>
+
+                <div
+                    class="theme"
+                    onclick="selectTheme(this, 'Explorateur de l’espace')"
+                >
+
+                    <div class="theme-icon">
+                        🚀
+                    </div>
+
+                    <div class="theme-name">
+                        Explorateur de l’espace
+                    </div>
+
                 </div>
 
-                <div class="theme" onclick="selectTheme(this, 'Monde des dinosaures')">
-                    <div class="theme-icon">🦖</div>
-                    <div class="theme-name">Monde des dinosaures</div>
+
+                <div
+                    class="theme"
+                    onclick="selectTheme(this, 'Monde des dinosaures')"
+                >
+
+                    <div class="theme-icon">
+                        🦖
+                    </div>
+
+                    <div class="theme-name">
+                        Monde des dinosaures
+                    </div>
+
                 </div>
 
-                <div class="theme" onclick="selectTheme(this, 'Royaume fantastique')">
-                    <div class="theme-icon">🏰</div>
-                    <div class="theme-name">Royaume fantastique</div>
+
+                <div
+                    class="theme"
+                    onclick="selectTheme(this, 'Royaume fantastique')"
+                >
+
+                    <div class="theme-icon">
+                        🏰
+                    </div>
+
+                    <div class="theme-name">
+                        Royaume fantastique
+                    </div>
+
                 </div>
 
-                <div class="theme" onclick="selectTheme(this, 'Petit pilote')">
-                    <div class="theme-icon">🏎️</div>
-                    <div class="theme-name">Petit pilote</div>
+
+                <div
+                    class="theme"
+                    onclick="selectTheme(this, 'Petit pilote')"
+                >
+
+                    <div class="theme-icon">
+                        🏎️
+                    </div>
+
+                    <div class="theme-name">
+                        Petit pilote
+                    </div>
+
                 </div>
 
-                <div class="theme" onclick="selectTheme(this, 'Aventure animale')">
-                    <div class="theme-icon">🦁</div>
-                    <div class="theme-name">Aventure animale</div>
+
+                <div
+                    class="theme"
+                    onclick="selectTheme(this, 'Aventure animale')"
+                >
+
+                    <div class="theme-icon">
+                        🦁
+                    </div>
+
+                    <div class="theme-name">
+                        Aventure animale
+                    </div>
+
                 </div>
 
-                <div class="theme" onclick="selectTheme(this, 'Explorateur des océans')">
-                    <div class="theme-icon">🌊</div>
-                    <div class="theme-name">Explorateur des océans</div>
+
+                <div
+                    class="theme"
+                    onclick="selectTheme(this, 'Explorateur des océans')"
+                >
+
+                    <div class="theme-icon">
+                        🌊
+                    </div>
+
+                    <div class="theme-name">
+                        Explorateur des océans
+                    </div>
+
                 </div>
+
 
             </div>
 
+
             <div class="buttons">
-                <button class="btn-primary" onclick="goToStep(2)">
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="validateThemeAndContinue()"
+                >
                     CONTINUER →
                 </button>
+
             </div>
 
         </section>
 
 
-        <!-- ÉTAPE 2 -->
 
-        <section class="step" id="step2">
+        <!-- =================================================
+             ÉTAPE 2 — PRÉNOM
+        ================================================== -->
 
-            <h2>👦 Le prénom de l'enfant</h2>
+        <section
+            class="step"
+            id="step2"
+        >
+
+            <h2>
+                👦 Le prénom de l'enfant
+            </h2>
 
             <p class="step-description">
-                Entrez le prénom qui apparaîtra sur le cadre.
+                Entrez le prénom qui apparaîtra sur la création.
             </p>
 
+
             <div class="input-group">
-                <label for="childName">Prénom de l'enfant</label>
+
+                <label
+                    class="field-label"
+                    for="childName"
+                >
+                    Prénom de l'enfant *
+                </label>
+
                 <input
                     type="text"
                     id="childName"
-                    placeholder="Exemple : Yanis"
                     maxlength="30"
+                    autocomplete="off"
+                    placeholder="Exemple : Yanis"
                 >
+
             </div>
 
+
             <div class="buttons">
-                <button class="btn-secondary" onclick="goToStep(1)">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    onclick="goToStep(1)"
+                >
                     ← RETOUR
                 </button>
 
-                <button class="btn-primary" onclick="validateName()">
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="validateName()"
+                >
                     CONTINUER →
                 </button>
+
             </div>
 
         </section>
 
 
-        <!-- ÉTAPE 3 -->
 
-        <section class="step" id="step3">
+        <!-- =================================================
+             ÉTAPE 3 — PHOTO
+        ================================================== -->
 
-            <h2>📸 Ajoutez une photo</h2>
+        <section
+            class="step"
+            id="step3"
+        >
+
+            <h2>
+                📸 Ajoutez la photo
+            </h2>
 
             <p class="step-description">
-                Choisissez une belle photo de l'enfant.
+                Prenez une nouvelle photo ou choisissez une photo déjà présente sur votre appareil.
             </p>
 
-            <label for="photoInput" class="photo-zone">
 
-                <div class="photo-icon">📷</div>
+            <div class="photo-options">
 
-                <strong>Ajouter une photo</strong>
 
-                <p style="color:#777; margin-top:8px;">
-                    Cliquez ici pour choisir une photo
-                </p>
+                <!-- PRENDRE PHOTO -->
 
-                <img id="photoPreview" class="photo-preview" alt="Aperçu de la photo">
+                <label
+                    for="cameraInput"
+                    class="photo-option"
+                >
 
-            </label>
+                    <div class="photo-option-icon">
+                        📷
+                    </div>
+
+                    <h3>
+                        Prendre une photo
+                    </h3>
+
+                    <p>
+                        Ouvrir la caméra
+                    </p>
+
+                </label>
+
+
+                <!-- AJOUTER PHOTO -->
+
+                <label
+                    for="galleryInput"
+                    class="photo-option"
+                >
+
+                    <div class="photo-option-icon">
+                        🖼️
+                    </div>
+
+                    <h3>
+                        Ajouter une photo
+                    </h3>
+
+                    <p>
+                        Choisir depuis l'appareil
+                    </p>
+
+                </label>
+
+
+            </div>
+
+
+            <!-- CAMÉRA -->
 
             <input
                 type="file"
-                id="photoInput"
+                id="cameraInput"
                 accept="image/*"
                 capture="user"
+                style="display:none;"
             >
+
+
+            <!-- GALERIE -->
+
+            <input
+                type="file"
+                id="galleryInput"
+                accept="image/*"
+                style="display:none;"
+            >
+
+
+            <!-- APERÇU -->
+
+            <div
+                class="photo-result"
+                id="photoResult"
+            >
+
+                <div
+                    class="photo-result-placeholder"
+                    id="photoPlaceholder"
+                >
+                    Aucune photo sélectionnée
+                </div>
+
+
+                <img
+                    id="photoPreview"
+                    class="photo-preview"
+                    alt="Aperçu de la photo"
+                >
+
+
+                <button
+                    type="button"
+                    class="change-photo"
+                    id="changePhotoButton"
+                    onclick="changePhoto()"
+                >
+                    🔄 Changer la photo
+                </button>
+
+            </div>
+
 
             <div class="buttons">
 
-                <button class="btn-secondary" onclick="goToStep(2)">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    onclick="goToStep(2)"
+                >
                     ← RETOUR
                 </button>
 
-                <button class="btn-primary" onclick="validatePhoto()">
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="validatePhoto()"
+                >
                     CONTINUER →
                 </button>
 
@@ -714,31 +1490,57 @@
         </section>
 
 
-        <!-- ÉTAPE 4 -->
 
-        <section class="step" id="step4">
+        <!-- =================================================
+             ÉTAPE 4 — CRÉATION
+        ================================================== -->
 
-            <div class="loading" id="loadingArea">
+        <section
+            class="step"
+            id="step4"
+        >
+
+
+            <div
+                class="loading"
+                id="loadingArea"
+            >
 
                 <div class="loader"></div>
 
-                <h2>✨ Création de votre univers...</h2>
+                <h2>
+                    ✨ Préparation de votre création...
+                </h2>
 
-                <p style="color:#777; margin-top:12px;">
-                    MyHikaya prépare votre création personnalisée.
+                <p
+                    style="
+                        color:#777;
+                        margin-top:12px;
+                    "
+                >
+                    MyHikaya prépare votre aperçu personnalisé.
                 </p>
 
             </div>
 
-            <div class="preview-box" id="previewArea" style="display:none;">
 
-                <h2>🖼️ Votre création</h2>
+            <div
+                class="preview-box"
+                id="previewArea"
+                style="display:none;"
+            >
+
+                <h2>
+                    🖼️ Votre création
+                </h2>
 
                 <p class="step-description">
-                    Voici un aperçu de votre cadre personnalisé.
+                    Voici un aperçu de votre création personnalisée.
                 </p>
 
+
                 <div class="creation-preview">
+
 
                     <img
                         id="previewPhoto"
@@ -746,19 +1548,37 @@
                         alt="Photo de l'enfant"
                     >
 
-                    <div class="preview-name" id="previewName"></div>
 
-                    <div class="preview-theme" id="previewTheme"></div>
+                    <div
+                        id="previewName"
+                        class="preview-name"
+                    ></div>
+
+
+                    <div
+                        id="previewTheme"
+                        class="preview-theme"
+                    ></div>
+
 
                 </div>
 
+
                 <div class="buttons">
 
-                    <button class="btn-secondary" onclick="goToStep(3)">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        onclick="goToStep(3)"
+                    >
                         ← MODIFIER
                     </button>
 
-                    <button class="btn-primary" onclick="goToStep(5)">
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        onclick="goToStep(5)"
+                    >
                         CHOISIR LE FORMAT →
                     </button>
 
@@ -769,17 +1589,29 @@
         </section>
 
 
-        <!-- ÉTAPE 5 -->
 
-        <section class="step" id="step5">
+        <!-- =================================================
+             ÉTAPE 5 — FORMAT
+        ================================================== -->
 
-            <h2>🖼️ Choisissez votre format</h2>
+        <section
+            class="step"
+            id="step5"
+        >
+
+            <h2>
+                🖼️ Choisissez votre format
+            </h2>
 
             <p class="step-description">
-                Sélectionnez le format du cadre que vous souhaitez commander.
+                Sélectionnez le format de votre cadre.
             </p>
 
+
             <div class="formats">
+
+
+                <!-- A4 -->
 
                 <div
                     class="format"
@@ -787,7 +1619,9 @@
                     onclick="selectFormat('A4', 1200)"
                 >
 
-                    <h3>A4</h3>
+                    <h3>
+                        A4
+                    </h3>
 
                     <div class="format-size">
                         21 × 29,7 cm
@@ -800,13 +1634,17 @@
                 </div>
 
 
+                <!-- A3 -->
+
                 <div
                     class="format"
                     id="formatA3"
                     onclick="selectFormat('A3', 2200)"
                 >
 
-                    <h3>A3</h3>
+                    <h3>
+                        A3
+                    </h3>
 
                     <div class="format-size">
                         29,7 × 42 cm
@@ -818,17 +1656,23 @@
 
                 </div>
 
+
             </div>
+
 
             <div class="buttons">
 
-                <button class="btn-secondary" onclick="goToStep(4)">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    onclick="goToStep(4)"
+                >
                     ← RETOUR
                 </button>
 
                 <button
-                    class="btn-primary"
-                    id="continueFormatButton"
+                    type="button"
+                    class="btn btn-primary"
                     onclick="validateFormat()"
                 >
                     CONTINUER →
@@ -839,14 +1683,22 @@
         </section>
 
 
-        <!-- ÉTAPE 6 : FORMULAIRE CLIENT -->
 
-        <section class="step" id="step6">
+        <!-- =================================================
+             ÉTAPE 6 — FORMULAIRE CLIENT
+        ================================================== -->
 
-            <h2>📦 Vos coordonnées</h2>
+        <section
+            class="step"
+            id="step6"
+        >
+
+            <h2>
+                📦 Finalisez votre commande
+            </h2>
 
             <p class="step-description">
-                Dernière étape : indiquez vos coordonnées pour que nous puissions vous contacter.
+                Indiquez vos coordonnées afin que MyHikaya puisse vous contacter pour confirmer la commande.
             </p>
 
 
@@ -854,25 +1706,54 @@
 
             <div class="order-summary">
 
-                <div class="summary-row">
-                    <span>👦 Enfant</span>
-                    <strong id="summaryChild"></strong>
-                </div>
 
                 <div class="summary-row">
-                    <span>🎨 Thème</span>
-                    <strong id="summaryTheme"></strong>
+
+                    <span>
+                        👦 Enfant
+                    </span>
+
+                    <strong id="summaryChild">
+                    </strong>
+
                 </div>
 
+
                 <div class="summary-row">
-                    <span>🖼️ Format</span>
-                    <strong id="summaryFormat"></strong>
+
+                    <span>
+                        🎨 Thème
+                    </span>
+
+                    <strong id="summaryTheme">
+                    </strong>
+
                 </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        🖼️ Format
+                    </span>
+
+                    <strong id="summaryFormat">
+                    </strong>
+
+                </div>
+
 
                 <div class="summary-row summary-total">
-                    <span>Total</span>
-                    <strong id="summaryPrice"></strong>
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong id="summaryPrice">
+                    </strong>
+
                 </div>
+
 
             </div>
 
@@ -881,17 +1762,22 @@
 
             <form id="orderForm">
 
+
                 <div class="input-group">
 
-                    <label for="customerName">
+                    <label
+                        class="field-label"
+                        for="customerName"
+                    >
                         👤 Nom et prénom *
                     </label>
 
                     <input
                         type="text"
                         id="customerName"
-                        placeholder="Exemple : Ahmed Benali"
                         required
+                        autocomplete="name"
+                        placeholder="Exemple : Ahmed Benali"
                     >
 
                 </div>
@@ -899,11 +1785,17 @@
 
                 <div class="input-group">
 
-                    <label for="wilaya">
+                    <label
+                        class="field-label"
+                        for="wilaya"
+                    >
                         📍 Wilaya *
                     </label>
 
-                    <select id="wilaya" required>
+                    <select
+                        id="wilaya"
+                        required
+                    >
 
                         <option value="">
                             Sélectionnez votre wilaya
@@ -975,15 +1867,19 @@
 
                 <div class="input-group">
 
-                    <label for="commune">
+                    <label
+                        class="field-label"
+                        for="commune"
+                    >
                         🏘️ Commune *
                     </label>
 
                     <input
                         type="text"
                         id="commune"
-                        placeholder="Exemple : Blida"
                         required
+                        autocomplete="address-level2"
+                        placeholder="Exemple : Blida"
                     >
 
                 </div>
@@ -991,15 +1887,20 @@
 
                 <div class="input-group">
 
-                    <label for="phone">
+                    <label
+                        class="field-label"
+                        for="phone"
+                    >
                         📞 Numéro de téléphone *
                     </label>
 
                     <input
                         type="tel"
                         id="phone"
-                        placeholder="Exemple : 0550 00 00 00"
                         required
+                        autocomplete="tel"
+                        inputmode="tel"
+                        placeholder="Exemple : 0550 00 00 00"
                     >
 
                 </div>
@@ -1008,9 +1909,9 @@
                 <div class="privacy">
 
                     🔒 <strong>Confidentialité :</strong>
-                    vos informations sont utilisées uniquement pour traiter
-                    votre commande et vous contacter concernant votre cadre personnalisé.
-                    Votre photo est utilisée uniquement pour la création demandée.
+                    vos informations servent uniquement au traitement
+                    de votre commande et à la confirmation avec MyHikaya.
+                    La photo est utilisée pour la personnalisation demandée.
 
                 </div>
 
@@ -1019,7 +1920,7 @@
 
                     <button
                         type="button"
-                        class="btn-secondary"
+                        class="btn btn-secondary"
                         onclick="goToStep(5)"
                     >
                         ← RETOUR
@@ -1027,49 +1928,66 @@
 
                     <button
                         type="submit"
-                        class="btn-primary"
+                        class="btn btn-primary"
                     >
                         ✅ CONFIRMER MA COMMANDE
                     </button>
 
                 </div>
 
+
             </form>
 
         </section>
 
 
-        <!-- CONFIRMATION -->
 
-        <section class="step" id="step7">
+        <!-- =================================================
+             ÉTAPE 7 — CONFIRMATION
+        ================================================== -->
+
+        <section
+            class="step"
+            id="step7"
+        >
 
             <div class="success">
+
 
                 <div class="success-icon">
                     ✅
                 </div>
 
-                <h2>Commande enregistrée !</h2>
 
-                <p style="margin-top:15px; color:#666;">
-                    Merci pour votre confiance.
-                </p>
+                <h2>
+                    Commande enregistrée !
+                </h2>
+
 
                 <div class="order-number">
+
                     N° <span id="orderNumber"></span>
+
                 </div>
 
-                <p style="line-height:1.7; color:#555;">
-                    Votre demande a bien été enregistrée.<br>
-                    Notre équipe MyHikaya vous contactera par téléphone
-                    pour confirmer les détails avant l'impression.
+
+                <p class="success-text">
+
+                    Votre demande a bien été enregistrée.
+                    <br><br>
+
+                    Notre équipe MyHikaya vous contactera
+                    par téléphone pour confirmer les détails
+                    de votre commande avant l'impression.
+
                 </p>
+
 
                 <div class="buttons">
 
                     <a
                         href="index.html"
-                        class="btn-primary"
+                        class="btn btn-primary"
                         style="text-decoration:none;"
                     >
                         ← RETOUR À L'ACCUEIL
@@ -1077,246 +1995,488 @@
 
                 </div>
 
+
             </div>
 
         </section>
+
 
     </div>
 
 </main>
 
 
+
 <script>
 
-    /* =========================
+    /* =========================================================
        VARIABLES
-    ========================= */
+    ========================================================= */
 
     let currentStep = 1;
 
     let selectedTheme = "";
+
     let childName = "";
+
     let photoData = "";
+
     let selectedFormat = "";
+
     let selectedPrice = 0;
 
 
-    /* =========================
-       CHANGER D'ÉTAPE
-    ========================= */
+
+    /* =========================================================
+       NAVIGATION
+    ========================================================= */
 
     function goToStep(step) {
 
-        document.querySelectorAll(".step").forEach(function(section) {
-            section.classList.remove("active");
-        });
+        document
+            .querySelectorAll(".step")
+            .forEach(function(section) {
 
-        const target = document.getElementById("step" + step);
+                section.classList.remove("active");
+
+            });
+
+
+        const target =
+            document.getElementById(
+                "step" + step
+            );
+
 
         if (target) {
+
             target.classList.add("active");
+
         }
+
 
         currentStep = step;
 
         updateProgress(step);
 
+
         window.scrollTo({
             top: 0,
             behavior: "smooth"
         });
+
     }
 
 
-    /* =========================
+
+    /* =========================================================
        PROGRESSION
-    ========================= */
+    ========================================================= */
 
     function updateProgress(step) {
 
-        for (let i = 1; i <= 6; i++) {
+        for (
+            let i = 1;
+            i <= 6;
+            i++
+        ) {
 
-            const progress = document.getElementById("progress" + i);
+            const progress =
+                document.getElementById(
+                    "progress" + i
+                );
 
-            if (!progress) continue;
+
+            if (!progress) {
+                continue;
+            }
+
 
             progress.classList.remove("active");
+
             progress.classList.remove("completed");
 
+
             if (i < step) {
-                progress.classList.add("completed");
+
+                progress.classList.add(
+                    "completed"
+                );
+
             }
 
+
             if (i === step) {
-                progress.classList.add("active");
+
+                progress.classList.add(
+                    "active"
+                );
+
             }
+
         }
+
     }
 
 
-    /* =========================
+
+    /* =========================================================
        THÈME
-    ========================= */
+    ========================================================= */
 
     function selectTheme(element, theme) {
 
-        document.querySelectorAll(".theme").forEach(function(item) {
-            item.classList.remove("selected");
-        });
+        document
+            .querySelectorAll(".theme")
+            .forEach(function(item) {
 
-        element.classList.add("selected");
+                item.classList.remove(
+                    "selected"
+                );
+
+            });
+
+
+        element.classList.add(
+            "selected"
+        );
+
 
         selectedTheme = theme;
+
     }
 
 
-    /* =========================
-       VALIDATION THÈME
-    ========================= */
-
-    function validateTheme() {
+    function validateThemeAndContinue() {
 
         if (!selectedTheme) {
 
-            alert("Veuillez choisir un thème.");
+            alert(
+                "Veuillez choisir un thème."
+            );
 
-            return false;
+            return;
+
         }
 
-        return true;
+
+        goToStep(2);
+
     }
 
 
-    /* =========================
+
+    /* =========================================================
        PRÉNOM
-    ========================= */
+    ========================================================= */
 
     function validateName() {
 
-        const input = document.getElementById("childName");
+        const input =
+            document.getElementById(
+                "childName"
+            );
 
-        const value = input.value.trim();
 
-        if (value === "") {
+        const value =
+            input.value.trim();
 
-            alert("Veuillez entrer le prénom de l'enfant.");
+
+        if (!value) {
+
+            alert(
+                "Veuillez entrer le prénom de l'enfant."
+            );
 
             input.focus();
 
             return;
+
         }
+
 
         childName = value;
 
         goToStep(3);
+
     }
 
 
-    /* =========================
-       PHOTO
-    ========================= */
 
-    document
-        .getElementById("photoInput")
-        .addEventListener("change", function(event) {
+    /* =========================================================
+       PHOTO — CAMÉRA
+    ========================================================= */
 
-            const file = event.target.files[0];
+    const cameraInput =
+        document.getElementById(
+            "cameraInput"
+        );
 
-            if (!file) {
-                return;
-            }
 
-            if (!file.type.startsWith("image/")) {
+    const galleryInput =
+        document.getElementById(
+            "galleryInput"
+        );
 
-                alert("Veuillez sélectionner une image.");
 
-                return;
-            }
+    cameraInput.addEventListener(
+        "change",
+        function(event) {
 
-            const reader = new FileReader();
+            handlePhoto(
+                event.target.files[0]
+            );
 
-            reader.onload = function(e) {
+        }
+    );
 
-                photoData = e.target.result;
 
-                const preview =
-                    document.getElementById("photoPreview");
+    galleryInput.addEventListener(
+        "change",
+        function(event) {
 
-                preview.src = photoData;
+            handlePhoto(
+                event.target.files[0]
+            );
 
-                preview.style.display = "block";
-            };
+        }
+    );
 
-            reader.readAsDataURL(file);
 
-        });
 
+    /* =========================================================
+       TRAITEMENT PHOTO
+    ========================================================= */
+
+    function handlePhoto(file) {
+
+        if (!file) {
+            return;
+        }
+
+
+        if (!file.type.startsWith("image/")) {
+
+            alert(
+                "Veuillez sélectionner une image."
+            );
+
+            return;
+
+        }
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload = function(event) {
+
+            photoData =
+                event.target.result;
+
+
+            const preview =
+                document.getElementById(
+                    "photoPreview"
+                );
+
+
+            const placeholder =
+                document.getElementById(
+                    "photoPlaceholder"
+                );
+
+
+            const changeButton =
+                document.getElementById(
+                    "changePhotoButton"
+                );
+
+
+            preview.src =
+                photoData;
+
+
+            preview.style.display =
+                "block";
+
+
+            placeholder.style.display =
+                "none";
+
+
+            changeButton.style.display =
+                "inline-block";
+
+        };
+
+
+        reader.readAsDataURL(file);
+
+    }
+
+
+
+    /* =========================================================
+       CHANGER PHOTO
+    ========================================================= */
+
+    function changePhoto() {
+
+        photoData = "";
+
+
+        document
+            .getElementById(
+                "photoPreview"
+            )
+            .style.display = "none";
+
+
+        document
+            .getElementById(
+                "photoPlaceholder"
+            )
+            .style.display = "block";
+
+
+        document
+            .getElementById(
+                "changePhotoButton"
+            )
+            .style.display = "none";
+
+
+        cameraInput.value = "";
+
+        galleryInput.value = "";
+
+    }
+
+
+
+    /* =========================================================
+       VALIDATION PHOTO
+    ========================================================= */
 
     function validatePhoto() {
 
         if (!photoData) {
 
-            alert("Veuillez ajouter une photo.");
+            alert(
+                "Veuillez prendre une photo ou ajouter une photo."
+            );
 
             return;
+
         }
+
 
         goToStep(4);
 
         startCreation();
+
     }
 
 
-    /* =========================
-       CRÉATION
-    ========================= */
+
+    /* =========================================================
+       PRÉPARATION CRÉATION
+    ========================================================= */
 
     function startCreation() {
 
-        document.getElementById("loadingArea").style.display = "block";
+        const loading =
+            document.getElementById(
+                "loadingArea"
+            );
 
-        document.getElementById("previewArea").style.display = "none";
 
-        document.getElementById("previewPhoto").src = photoData;
+        const previewArea =
+            document.getElementById(
+                "previewArea"
+            );
 
-        document.getElementById("previewName").textContent = childName;
 
-        document.getElementById("previewTheme").textContent = selectedTheme;
+        loading.style.display =
+            "block";
+
+
+        previewArea.style.display =
+            "none";
+
+
+        document
+            .getElementById(
+                "previewPhoto"
+            )
+            .src = photoData;
+
+
+        document
+            .getElementById(
+                "previewName"
+            )
+            .textContent = childName;
+
+
+        document
+            .getElementById(
+                "previewTheme"
+            )
+            .textContent = selectedTheme;
 
 
         /*
-         * POUR L'INSTANT :
-         * simulation de génération.
+         * VERSION ACTUELLE :
+         * aperçu simulé.
          *
-         * Plus tard cette partie sera reliée
-         * à l'IA de génération d'image.
+         * L'IA sera connectée ensuite.
          */
 
-        setTimeout(function() {
+        setTimeout(
+            function() {
 
-            document.getElementById("loadingArea").style.display = "none";
+                loading.style.display =
+                    "none";
 
-            document.getElementById("previewArea").style.display = "block";
 
-        }, 1800);
+                previewArea.style.display =
+                    "block";
+
+            },
+            1800
+        );
+
     }
 
 
-    /* =========================
+
+    /* =========================================================
        FORMAT
-    ========================= */
+    ========================================================= */
 
-    function selectFormat(format, price) {
+    function selectFormat(
+        format,
+        price
+    ) {
 
-        selectedFormat = format;
+        selectedFormat =
+            format;
 
-        selectedPrice = price;
+
+        selectedPrice =
+            price;
+
 
         document
             .querySelectorAll(".format")
             .forEach(function(item) {
 
-                item.classList.remove("selected");
+                item.classList.remove(
+                    "selected"
+                );
 
             });
 
@@ -1324,8 +2484,12 @@
         if (format === "A4") {
 
             document
-                .getElementById("formatA4")
-                .classList.add("selected");
+                .getElementById(
+                    "formatA4"
+                )
+                .classList.add(
+                    "selected"
+                );
 
         }
 
@@ -1333,151 +2497,224 @@
         if (format === "A3") {
 
             document
-                .getElementById("formatA3")
-                .classList.add("selected");
+                .getElementById(
+                    "formatA3"
+                )
+                .classList.add(
+                    "selected"
+                );
 
         }
 
     }
 
 
-    /* =========================
+
+    /* =========================================================
        VALIDATION FORMAT
-    ========================= */
+    ========================================================= */
 
     function validateFormat() {
 
         if (!selectedFormat) {
 
-            alert("Veuillez choisir le format A4 ou A3.");
+            alert(
+                "Veuillez choisir le format A4 ou A3."
+            );
 
             return;
+
         }
 
 
-        /* REMPLIR LE RÉCAPITULATIF */
-
-        document.getElementById("summaryChild").textContent =
+        document
+            .getElementById(
+                "summaryChild"
+            )
+            .textContent =
             childName;
 
-        document.getElementById("summaryTheme").textContent =
+
+        document
+            .getElementById(
+                "summaryTheme"
+            )
+            .textContent =
             selectedTheme;
 
-        document.getElementById("summaryFormat").textContent =
+
+        document
+            .getElementById(
+                "summaryFormat"
+            )
+            .textContent =
             selectedFormat;
 
-        document.getElementById("summaryPrice").textContent =
-            selectedPrice.toLocaleString("fr-FR") + " DA";
 
+        document
+            .getElementById(
+                "summaryPrice"
+            )
+            .textContent =
+            selectedPrice.toLocaleString(
+                "fr-FR"
+            ) + " DA";
 
-        /* AFFICHER LE FORMULAIRE */
 
         goToStep(6);
+
     }
 
 
-    /* =========================
-       FORMULAIRE CLIENT
-    ========================= */
+
+    /* =========================================================
+       FORMULAIRE COMMANDE
+    ========================================================= */
 
     document
-        .getElementById("orderForm")
-        .addEventListener("submit", function(event) {
+        .getElementById(
+            "orderForm"
+        )
+        .addEventListener(
+            "submit",
+            function(event) {
 
-            event.preventDefault();
+                event.preventDefault();
 
 
-            const customerName =
+                const customerName =
+                    document
+                        .getElementById(
+                            "customerName"
+                        )
+                        .value
+                        .trim();
+
+
+                const wilaya =
+                    document
+                        .getElementById(
+                            "wilaya"
+                        )
+                        .value;
+
+
+                const commune =
+                    document
+                        .getElementById(
+                            "commune"
+                        )
+                        .value
+                        .trim();
+
+
+                const phone =
+                    document
+                        .getElementById(
+                            "phone"
+                        )
+                        .value
+                        .trim();
+
+
+                if (
+                    !customerName ||
+                    !wilaya ||
+                    !commune ||
+                    !phone
+                ) {
+
+                    alert(
+                        "Veuillez remplir tous les champs obligatoires."
+                    );
+
+                    return;
+
+                }
+
+
+                /* NUMÉRO DE COMMANDE */
+
+                const randomNumber =
+                    Math.floor(
+                        100000 +
+                        Math.random() *
+                        900000
+                    );
+
+
+                const orderNumber =
+                    "MH-" +
+                    randomNumber;
+
+
                 document
-                    .getElementById("customerName")
-                    .value
-                    .trim();
+                    .getElementById(
+                        "orderNumber"
+                    )
+                    .textContent =
+                    orderNumber;
 
 
-            const wilaya =
-                document
-                    .getElementById("wilaya")
-                    .value;
+                /*
+                 * POUR L'INSTANT :
+                 * affichage dans la console.
+                 *
+                 * PROCHAINE ÉTAPE :
+                 * connexion Supabase.
+                 */
+
+                console.log(
+                    "COMMANDE MYHIKAYA",
+                    {
+                        orderNumber:
+                            orderNumber,
+
+                        childName:
+                            childName,
+
+                        theme:
+                            selectedTheme,
+
+                        format:
+                            selectedFormat,
+
+                        price:
+                            selectedPrice,
+
+                        customerName:
+                            customerName,
+
+                        wilaya:
+                            wilaya,
+
+                        commune:
+                            commune,
+
+                        phone:
+                            phone,
+
+                        photo:
+                            photoData
+                    }
+                );
 
 
-            const commune =
-                document
-                    .getElementById("commune")
-                    .value
-                    .trim();
+                goToStep(7);
 
-
-            const phone =
-                document
-                    .getElementById("phone")
-                    .value
-                    .trim();
-
-
-            if (!customerName || !wilaya || !commune || !phone) {
-
-                alert("Veuillez remplir tous les champs obligatoires.");
-
-                return;
             }
+        );
 
 
-            /*
-             * NUMÉRO DE COMMANDE TEMPORAIRE
-             *
-             * Plus tard, il sera généré
-             * automatiquement par Supabase.
-             */
 
-            const randomNumber =
-                Math.floor(100000 + Math.random() * 900000);
-
-            const orderNumber =
-                "MH-" + randomNumber;
-
-
-            document.getElementById("orderNumber").textContent =
-                orderNumber;
-
-
-            /* AFFICHER CONFIRMATION */
-
-            goToStep(7);
-
-
-            /*
-             * POUR L'INSTANT :
-             * les données ne sont pas encore
-             * enregistrées dans une base de données.
-             *
-             * Étape suivante :
-             * connecter ce formulaire à Supabase.
-             */
-
-            console.log("COMMANDE MYHIKAYA");
-
-            console.log({
-                orderNumber: orderNumber,
-                childName: childName,
-                theme: selectedTheme,
-                format: selectedFormat,
-                price: selectedPrice,
-                customerName: customerName,
-                wilaya: wilaya,
-                commune: commune,
-                phone: phone
-            });
-
-        });
-
-
-    /* =========================
+    /* =========================================================
        INITIALISATION
-    ========================= */
+    ========================================================= */
 
     updateProgress(1);
 
 </script>
+
 
 </body>
 </html>
