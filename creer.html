@@ -9,6 +9,7 @@
     <meta name="description" content="Créez votre cadre personnalisé MyHikaya.">
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -184,17 +185,19 @@
             margin-bottom: 9px;
         }
 
-        .field input[type="text"] {
+        .field input {
             width: 100%;
             padding: 16px;
             border: 1px solid #ddd;
             border-radius: 13px;
             font-size: 17px;
             outline: none;
+            background: white;
         }
 
-        .field input[type="text"]:focus {
+        .field input:focus {
             border-color: #f39c12;
+            box-shadow: 0 0 0 3px rgba(243,156,18,0.10);
         }
 
         .photo-zone {
@@ -204,6 +207,7 @@
             text-align: center;
             cursor: pointer;
             background: #fafafa;
+            display: block;
         }
 
         .photo-zone:hover {
@@ -262,10 +266,12 @@
             padding: 30px;
             text-align: center;
             cursor: pointer;
+            transition: 0.2s;
         }
 
         .format:hover {
             border-color: #f39c12;
+            transform: translateY(-2px);
         }
 
         .format.selected {
@@ -298,12 +304,24 @@
         .summary-row {
             display: flex;
             justify-content: space-between;
-            padding: 7px 0;
+            padding: 8px 0;
             gap: 20px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
         }
 
         .summary-row strong {
             text-align: right;
+        }
+
+        .summary-total {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #ddd;
+            font-size: 20px;
         }
 
         .buttons {
@@ -403,6 +421,46 @@
             color: #222;
         }
 
+        /* FORMULAIRE CLIENT */
+
+        .customer-form {
+            display: none;
+        }
+
+        .customer-form h2 {
+            margin-bottom: 8px;
+        }
+
+        .customer-form-intro {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .order-summary {
+            background: #fff8ed;
+            border: 1px solid #f3d8aa;
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .order-summary h3 {
+            margin-bottom: 15px;
+        }
+
+        .customer-form .field {
+            margin-bottom: 20px;
+        }
+
+        .privacy-note {
+            background: #f5f8ff;
+            border-radius: 14px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #555;
+            font-size: 14px;
+        }
+
         .success {
             display: none;
             text-align: center;
@@ -421,6 +479,36 @@
 
         .success p {
             color: #777;
+            max-width: 650px;
+            margin: 8px auto;
+        }
+
+        .order-number-box {
+            background: #fff8ed;
+            border: 1px solid #f3d8aa;
+            border-radius: 18px;
+            padding: 20px;
+            margin: 25px auto;
+            max-width: 400px;
+        }
+
+        .order-number-box span {
+            display: block;
+            font-size: 26px;
+            font-weight: bold;
+            color: #f39c12;
+            margin-top: 5px;
+        }
+
+        .home-button {
+            display: inline-block;
+            text-decoration: none;
+            background: #f39c12;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 10px;
         }
 
         @media (max-width: 650px) {
@@ -449,7 +537,17 @@
             .buttons button {
                 width: 100%;
             }
+
+            .summary-row {
+                flex-direction: column;
+                gap: 2px;
+            }
+
+            .summary-row strong {
+                text-align: left;
+            }
         }
+
     </style>
 </head>
 
@@ -522,6 +620,13 @@
             Format
         </div>
 
+        <span>→</span>
+
+        <div class="progress-item" id="progress6">
+            <div class="progress-number">6</div>
+            Coordonnées
+        </div>
+
     </div>
 
 
@@ -537,100 +642,57 @@
             Sélectionnez le thème qui correspond le mieux à votre enfant.
         </p>
 
-
         <div class="themes">
 
             <div class="theme-option" onclick="selectTheme(this, 'Explorateur de l’espace')">
-
                 <div class="theme-icon">🚀</div>
-
-                <div class="theme-name">
-                    Explorateur de l’espace
-                </div>
-
+                <div class="theme-name">Explorateur de l’espace</div>
                 <div class="theme-description">
                     Une aventure parmi les étoiles.
                 </div>
-
             </div>
 
-
             <div class="theme-option" onclick="selectTheme(this, 'Monde des dinosaures')">
-
                 <div class="theme-icon">🦖</div>
-
-                <div class="theme-name">
-                    Monde des dinosaures
-                </div>
-
+                <div class="theme-name">Monde des dinosaures</div>
                 <div class="theme-description">
                     Une exploration préhistorique.
                 </div>
-
             </div>
 
-
             <div class="theme-option" onclick="selectTheme(this, 'Royaume fantastique')">
-
                 <div class="theme-icon">🏰</div>
-
-                <div class="theme-name">
-                    Royaume fantastique
-                </div>
-
+                <div class="theme-name">Royaume fantastique</div>
                 <div class="theme-description">
                     Un univers rempli d'aventures.
                 </div>
-
             </div>
 
-
             <div class="theme-option" onclick="selectTheme(this, 'Petit pilote')">
-
                 <div class="theme-icon">🏎️</div>
-
-                <div class="theme-name">
-                    Petit pilote
-                </div>
-
+                <div class="theme-name">Petit pilote</div>
                 <div class="theme-description">
                     Une aventure à toute vitesse.
                 </div>
-
             </div>
 
-
             <div class="theme-option" onclick="selectTheme(this, 'Aventure animale')">
-
                 <div class="theme-icon">🦁</div>
-
-                <div class="theme-name">
-                    Aventure animale
-                </div>
-
+                <div class="theme-name">Aventure animale</div>
                 <div class="theme-description">
                     Une exploration au cœur de la nature.
                 </div>
-
             </div>
 
-
             <div class="theme-option" onclick="selectTheme(this, 'Explorateur des océans')">
-
                 <div class="theme-icon">🌊</div>
-
-                <div class="theme-name">
-                    Explorateur des océans
-                </div>
-
+                <div class="theme-name">Explorateur des océans</div>
                 <div class="theme-description">
                     Une aventure sous-marine.
                 </div>
-
             </div>
 
         </div>
-
 
         <div class="buttons">
 
@@ -657,7 +719,6 @@
             Entrez le prénom qui apparaîtra sur le cadre.
         </p>
 
-
         <div class="field">
 
             <label for="childName">
@@ -672,7 +733,6 @@
             >
 
         </div>
-
 
         <div class="buttons">
 
@@ -701,7 +761,6 @@
             Choisissez une photo claire de l'enfant.
         </p>
 
-
         <label class="photo-zone" for="photoInput">
 
             <div class="photo-icon">
@@ -718,14 +777,12 @@
 
         </label>
 
-
         <input
             type="file"
             id="photoInput"
             accept="image/*"
             capture="user"
         >
-
 
         <div class="preview" id="photoPreview">
 
@@ -734,7 +791,6 @@
             <div class="preview-name" id="previewName"></div>
 
         </div>
-
 
         <div class="buttons">
 
@@ -780,7 +836,6 @@
             Voici un aperçu de votre création MyHikaya.
         </p>
 
-
         <div class="result-frame">
 
             <div class="result-inside">
@@ -799,11 +854,9 @@
 
         </div>
 
-
         <p style="color:#777;">
             Aperçu de démonstration — la génération IA sera connectée dans une prochaine étape.
         </p>
-
 
         <div class="buttons">
 
@@ -832,7 +885,6 @@
             Sélectionnez le format de votre cadre.
         </p>
 
-
         <div class="format-grid">
 
             <div class="format" onclick="selectFormat(this, 'A4', '1 200 DA')">
@@ -849,7 +901,6 @@
 
             </div>
 
-
             <div class="format" onclick="selectFormat(this, 'A3', '2 200 DA')">
 
                 <h3>A3</h3>
@@ -865,7 +916,6 @@
             </div>
 
         </div>
-
 
         <div class="summary">
 
@@ -884,13 +934,12 @@
                 <strong id="summaryFormat">—</strong>
             </div>
 
-            <div class="summary-row">
+            <div class="summary-row summary-total">
                 <span>Total</span>
                 <strong id="summaryPrice">—</strong>
             </div>
 
         </div>
-
 
         <div class="buttons">
 
@@ -899,10 +948,158 @@
             </button>
 
             <button class="btn-primary" onclick="validateOrder()">
-                Valider ma création →
+                Continuer →
             </button>
 
         </div>
+
+    </section>
+
+
+    <!-- ÉTAPE 6 : FORMULAIRE CLIENT -->
+
+    <section class="card customer-form" id="customerForm">
+
+        <h2 class="step-title">
+            ⑥ Finalisez votre commande
+        </h2>
+
+        <p class="customer-form-intro">
+            Indiquez vos coordonnées afin que MyHikaya puisse vous contacter
+            pour confirmer votre commande avant l'impression.
+        </p>
+
+
+        <!-- RÉCAPITULATIF -->
+
+        <div class="order-summary">
+
+            <h3>
+                🖼️ Votre commande
+            </h3>
+
+            <div class="summary-row">
+                <span>👤 Enfant</span>
+                <strong id="customerSummaryName">—</strong>
+            </div>
+
+            <div class="summary-row">
+                <span>🎨 Thème</span>
+                <strong id="customerSummaryTheme">—</strong>
+            </div>
+
+            <div class="summary-row">
+                <span>📐 Format</span>
+                <strong id="customerSummaryFormat">—</strong>
+            </div>
+
+            <div class="summary-row summary-total">
+                <span>Total</span>
+                <strong id="customerSummaryPrice">—</strong>
+            </div>
+
+        </div>
+
+
+        <form id="orderForm">
+
+            <div class="field">
+
+                <label for="customerName">
+                    Nom et prénom *
+                </label>
+
+                <input
+                    type="text"
+                    id="customerName"
+                    placeholder="Exemple : Ahmed Benali"
+                    maxlength="80"
+                    required
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="wilaya">
+                    Wilaya *
+                </label>
+
+                <input
+                    type="text"
+                    id="wilaya"
+                    placeholder="Exemple : Blida"
+                    maxlength="50"
+                    required
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="commune">
+                    Commune *
+                </label>
+
+                <input
+                    type="text"
+                    id="commune"
+                    placeholder="Exemple : Blida"
+                    maxlength="80"
+                    required
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="phone">
+                    Numéro de téléphone *
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    placeholder="Exemple : 05 XX XX XX XX"
+                    maxlength="20"
+                    required
+                >
+
+            </div>
+
+
+            <div class="privacy-note">
+
+                🔒 <strong>Confidentialité :</strong>
+                vos coordonnées sont utilisées uniquement pour traiter
+                et confirmer votre commande MyHikaya.
+
+            </div>
+
+
+            <div class="buttons">
+
+                <button
+                    type="button"
+                    class="btn-secondary"
+                    onclick="backToFormat()"
+                >
+                    ← Retour
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn-primary"
+                >
+                    ✅ CONFIRMER MA COMMANDE
+                </button>
+
+            </div>
+
+        </form>
 
     </section>
 
@@ -916,17 +1113,34 @@
         </div>
 
         <h2>
-            Votre création est prête !
+            Commande enregistrée !
         </h2>
 
         <p>
-            La prochaine étape sera la saisie de vos coordonnées
-            pour finaliser votre commande.
+            Merci pour votre confiance.
         </p>
 
-        <br>
+        <p>
+            Votre demande a bien été reçue.
+            L'équipe MyHikaya vous contactera par téléphone
+            afin de confirmer les détails avant l'impression.
+        </p>
 
-        <a href="index.html" class="main-button">
+
+        <div class="order-number-box">
+
+            <strong>
+                Votre numéro de commande
+            </strong>
+
+            <span id="orderNumber">
+                MH-000000
+            </span>
+
+        </div>
+
+
+        <a href="index.html" class="home-button">
             Retour à l'accueil
         </a>
 
@@ -937,11 +1151,15 @@
 
 <script>
 
+    /* VARIABLES */
+
     let selectedTheme = "";
     let selectedFormat = "";
     let selectedPrice = "";
     let photoData = "";
 
+
+    /* THÈME */
 
     function selectTheme(element, theme) {
 
@@ -955,9 +1173,11 @@
     }
 
 
+    /* PROGRESSION */
+
     function updateProgress(number) {
 
-        for (let i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 6; i++) {
 
             const item = document.getElementById("progress" + i);
 
@@ -969,6 +1189,8 @@
 
     }
 
+
+    /* ÉTAPES */
 
     function nextStep(currentStep) {
 
@@ -995,7 +1217,8 @@
 
         if (currentStep === 2) {
 
-            const name = document.getElementById("childName").value.trim();
+            const name =
+                document.getElementById("childName").value.trim();
 
             if (!name) {
                 alert("Veuillez entrer le prénom de l'enfant.");
@@ -1040,6 +1263,7 @@
                 document.getElementById("step4").style.display = "block";
 
                 document.getElementById("resultImage").src = photoData;
+
                 document.getElementById("resultName").textContent =
                     document.getElementById("childName").value.trim();
 
@@ -1053,6 +1277,8 @@
     }
 
 
+    /* RETOUR */
+
     function previousStep(currentStep) {
 
         if (currentStep === 2) {
@@ -1061,7 +1287,6 @@
             document.getElementById("step1").style.display = "block";
 
             updateProgress(1);
-
         }
 
 
@@ -1071,8 +1296,8 @@
             document.getElementById("step2").style.display = "block";
 
             updateProgress(2);
-
         }
+
 
         window.scrollTo({
             top: 0,
@@ -1081,6 +1306,8 @@
 
     }
 
+
+    /* PHOTO */
 
     document.getElementById("photoInput").addEventListener("change", function(event) {
 
@@ -1115,6 +1342,8 @@
     });
 
 
+    /* RETOUR PHOTO */
+
     function backToPhoto() {
 
         document.getElementById("step4").style.display = "none";
@@ -1129,6 +1358,8 @@
 
     }
 
+
+    /* FORMAT */
 
     function goToFormat() {
 
@@ -1162,11 +1393,16 @@
         selectedFormat = format;
         selectedPrice = price;
 
-        document.getElementById("summaryFormat").textContent = format;
-        document.getElementById("summaryPrice").textContent = price;
+        document.getElementById("summaryFormat").textContent =
+            format;
+
+        document.getElementById("summaryPrice").textContent =
+            price;
 
     }
 
+
+    /* RETOUR APERÇU */
 
     function backToPreview() {
 
@@ -1183,6 +1419,8 @@
     }
 
 
+    /* FORMULAIRE CLIENT */
+
     function validateOrder() {
 
         if (!selectedFormat) {
@@ -1192,8 +1430,27 @@
 
         }
 
+
         document.getElementById("step5").style.display = "none";
-        document.getElementById("success").style.display = "block";
+
+        document.getElementById("customerForm").style.display = "block";
+
+
+        document.getElementById("customerSummaryName").textContent =
+            document.getElementById("childName").value.trim();
+
+        document.getElementById("customerSummaryTheme").textContent =
+            selectedTheme;
+
+        document.getElementById("customerSummaryFormat").textContent =
+            selectedFormat;
+
+        document.getElementById("customerSummaryPrice").textContent =
+            selectedPrice;
+
+
+        updateProgress(6);
+
 
         window.scrollTo({
             top: 0,
@@ -1201,6 +1458,77 @@
         });
 
     }
+
+
+    /* RETOUR FORMAT */
+
+    function backToFormat() {
+
+        document.getElementById("customerForm").style.display = "none";
+
+        document.getElementById("step5").style.display = "block";
+
+        updateProgress(5);
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* CONFIRMATION DE COMMANDE */
+
+    document.getElementById("orderForm").addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+
+        const customerName =
+            document.getElementById("customerName").value.trim();
+
+        const wilaya =
+            document.getElementById("wilaya").value.trim();
+
+        const commune =
+            document.getElementById("commune").value.trim();
+
+        const phone =
+            document.getElementById("phone").value.trim();
+
+
+        if (!customerName || !wilaya || !commune || !phone) {
+
+            alert("Veuillez remplir tous les champs obligatoires.");
+
+            return;
+        }
+
+
+        /* Numéro temporaire de commande */
+
+        const orderNumber =
+            "MH-" + Math.floor(100000 + Math.random() * 900000);
+
+
+        document.getElementById("customerForm").style.display = "none";
+
+        document.getElementById("success").style.display = "block";
+
+        document.getElementById("orderNumber").textContent =
+            orderNumber;
+
+
+        updateProgress(6);
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
 
 </script>
 
