@@ -5,9 +5,7 @@ exports.handler = async function (event) {
   };
 
   try {
-    // ─────────────────────────────────────────────
-    // 1. Autoriser uniquement GET pour notre test
-    // ─────────────────────────────────────────────
+    // Autoriser uniquement GET pour ce test
     if (event.httpMethod !== "GET") {
       return {
         statusCode: 405,
@@ -19,9 +17,7 @@ exports.handler = async function (event) {
       };
     }
 
-    // ─────────────────────────────────────────────
-    // 2. Récupérer la clé secrète Netlify
-    // ─────────────────────────────────────────────
+    // Récupération de la clé Gemini depuis Netlify
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
@@ -35,24 +31,46 @@ exports.handler = async function (event) {
       };
     }
 
-    // ─────────────────────────────────────────────
-    // 3. Appel Gemini
-    // ─────────────────────────────────────────────
+    // Prompt de test
+    const prompt = `
+Create a premium original children's storybook illustration.
+
+Scene:
+A joyful little explorer having an adventure in outer space.
+
+Style:
+Premium cinematic 3D children's illustration,
+high quality,
+beautiful lighting,
+detailed environment,
+expressive character,
+professional composition,
+colorful but elegant,
+suitable for a premium children's book.
+
+Important:
+Create an original scene.
+Do not use copyrighted characters, logos or existing franchises.
+`;
+
+    // Appel Gemini
     const response = await fetch(
       "https://generativelanguage.googleapis.com/v1beta/interactions",
       {
         method: "POST",
-
         headers: {
           "Content-Type": "application/json",
           "x-goog-api-key": apiKey
         },
-
         body: JSON.stringify({
           model: "gemini-nano-banana-2.1",
 
-          input:
-            "Create a premium original children's storybook illustration of a little explorer having a joyful adventure in outer space. Beautiful cinematic 3D style, expressive character, detailed environment, professional composition, suitable for a high-quality children's book.",
+          input: [
+            {
+              type: "text",
+              text: prompt
+            }
+          ],
 
           response_format: {
             type: "image",
@@ -64,11 +82,9 @@ exports.handler = async function (event) {
       }
     );
 
-    // ─────────────────────────────────────────────
-    // 4. Lire la réponse Gemini
-    // ─────────────────────────────────────────────
     const result = await response.json();
 
+    // Erreur Gemini
     if (!response.ok) {
       console.error(
         "Gemini API error:",
@@ -76,24 +92,17 @@ exports.handler = async function (event) {
       );
 
       return {
-        statusCode: response.status >= 400 && response.status < 500
-          ? 400
-          : 502,
-
+        statusCode: 502,
         headers,
-
         body: JSON.stringify({
           success: false,
           error: "Gemini a refusé la génération.",
-          details: result?.error?.message || "Erreur Gemini."
+          details: result
         })
       };
     }
 
-    // ─────────────────────────────────────────────
-    // 5. Vérifier que Gemini a réellement généré
-    //    une image
-    // ─────────────────────────────────────────────
+    // Vérification de l'image
     const image = result?.output_image;
 
     if (!image || !image.data) {
@@ -105,32 +114,27 @@ exports.handler = async function (event) {
       return {
         statusCode: 502,
         headers,
-
         body: JSON.stringify({
           success: false,
-          error: "Gemini n'a pas retourné d'image."
+          error: "Gemini n'a pas retourné d'image.",
+          details: result
         })
       };
     }
 
-    // ─────────────────────────────────────────────
-    // 6. Succès
-    // ─────────────────────────────────────────────
+    // Succès
     return {
       statusCode: 200,
-
       headers,
-
       body: JSON.stringify({
         success: true,
-        message: "Gemini fonctionne.",
+        message: "Gemini fonctionne correctement.",
         mimeType: image.mime_type || "image/jpeg",
         imageBase64: image.data
       })
     };
 
   } catch (error) {
-
     console.error(
       "Erreur serveur:",
       error?.message || error
@@ -138,9 +142,7 @@ exports.handler = async function (event) {
 
     return {
       statusCode: 500,
-
       headers,
-
       body: JSON.stringify({
         success: false,
         error: "Erreur serveur lors de la communication avec Gemini."
