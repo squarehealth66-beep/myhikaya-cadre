@@ -3,594 +3,494 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#111827">
 
 <title>Créer mon cadre — MyHikaya</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f7f8fc;
-    color: #172033;
-    min-height: 100vh;
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f7f8fc;
+    color:#222;
 }
 
-header {
-    height: 72px;
-    background: white;
-    border-bottom: 1px solid #e8eaf0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 6%;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:white;
+    box-shadow:0 2px 12px rgba(0,0,0,.08);
 }
 
-.logo {
-    font-size: 26px;
-    font-weight: 800;
-    color: #111827;
-    text-decoration: none;
+.header-inner{
+    max-width:1200px;
+    margin:auto;
+    padding:15px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
 }
 
-.logo span {
-    color: #7c3aed;
+.logo{
+    font-size:28px;
+    font-weight:900;
+    color:#ff6b35;
 }
 
-.back-home {
-    text-decoration: none;
-    color: #555;
-    font-weight: 600;
+.back-home{
+    text-decoration:none;
+    color:#444;
+    font-weight:700;
 }
 
-.container {
-    max-width: 1050px;
-    margin: 0 auto;
-    padding: 45px 20px 70px;
+.container{
+    max-width:1050px;
+    margin:35px auto;
+    padding:0 20px;
 }
 
-.page-title {
-    text-align: center;
-    margin-bottom: 35px;
+h1{
+    text-align:center;
+    font-size:34px;
+    margin-bottom:10px;
 }
 
-.page-title h1 {
-    font-size: 38px;
-    margin-bottom: 10px;
+.subtitle{
+    text-align:center;
+    color:#666;
+    margin-bottom:35px;
 }
 
-.page-title p {
-    color: #6b7280;
-    font-size: 17px;
+.progress{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-bottom:35px;
+    flex-wrap:wrap;
 }
 
-/* PROGRESS */
-
-.progress {
-    display: flex;
-    justify-content: space-between;
-    max-width: 850px;
-    margin: 0 auto 45px;
-    position: relative;
+.progress-item{
+    padding:9px 14px;
+    border-radius:30px;
+    background:#e9ebf2;
+    color:#777;
+    font-size:14px;
+    font-weight:700;
 }
 
-.progress::before {
-    content: "";
-    position: absolute;
-    top: 18px;
-    left: 5%;
-    right: 5%;
-    height: 3px;
-    background: #e5e7eb;
-    z-index: 0;
+.progress-item.active{
+    background:#ff6b35;
+    color:white;
 }
 
-.progress-step {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    width: 14%;
+.step{
+    display:none;
+    background:white;
+    padding:30px;
+    border-radius:22px;
+    box-shadow:0 8px 30px rgba(0,0,0,.08);
 }
 
-.progress-number {
-    width: 36px;
-    height: 36px;
-    margin: 0 auto 8px;
-    border-radius: 50%;
-    background: #e5e7eb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    color: #6b7280;
+.step.active{
+    display:block;
 }
 
-.progress-step.active .progress-number,
-.progress-step.done .progress-number {
-    background: #7c3aed;
-    color: white;
+.step h2{
+    text-align:center;
+    margin-bottom:25px;
 }
 
-.progress-label {
-    font-size: 12px;
-    color: #777;
+.themes{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
 }
 
-.progress-step.active .progress-label {
-    color: #7c3aed;
-    font-weight: bold;
+.theme{
+    border:3px solid transparent;
+    border-radius:18px;
+    padding:25px 15px;
+    background:#f7f8fc;
+    cursor:pointer;
+    text-align:center;
+    transition:.2s;
 }
 
-/* CARD */
-
-.step {
-    display: none;
+.theme:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 
-.step.active {
-    display: block;
+.theme.selected{
+    border-color:#ff6b35;
+    background:#fff5f0;
 }
 
-.card {
-    background: white;
-    border-radius: 24px;
-    padding: 35px;
-    box-shadow: 0 15px 45px rgba(0,0,0,.07);
+.theme-icon{
+    font-size:50px;
+    margin-bottom:12px;
 }
 
-.card h2 {
-    text-align: center;
-    font-size: 27px;
-    margin-bottom: 10px;
-}
-
-.card-subtitle {
-    text-align: center;
-    color: #6b7280;
-    margin-bottom: 30px;
-}
-
-/* THEMES */
-
-.themes-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-}
-
-.theme-card {
-    border: 2px solid #e7e9ef;
-    border-radius: 18px;
-    padding: 25px 15px;
-    text-align: center;
-    cursor: pointer;
-    transition: .2s;
-    background: white;
-}
-
-.theme-card:hover {
-    transform: translateY(-3px);
-    border-color: #a78bfa;
-}
-
-.theme-card.selected {
-    border-color: #7c3aed;
-    background: #f5f3ff;
-    box-shadow: 0 8px 25px rgba(124,58,237,.12);
-}
-
-.theme-icon {
-    font-size: 48px;
-    margin-bottom: 12px;
-}
-
-.theme-card h3 {
-    margin-bottom: 7px;
-}
-
-.theme-card p {
-    font-size: 13px;
-    color: #777;
-}
-
-/* INPUT */
-
-.form-group {
-    margin-bottom: 22px;
-}
-
-.form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
+.theme-title{
+    font-size:18px;
+    font-weight:800;
 }
 
 input,
-select {
-    width: 100%;
-    padding: 15px 16px;
-    border: 1px solid #dfe2e8;
-    border-radius: 12px;
-    font-size: 16px;
-    outline: none;
-    background: white;
+select{
+    width:100%;
+    padding:15px;
+    border:2px solid #ddd;
+    border-radius:12px;
+    font-size:16px;
+    margin-top:8px;
+    outline:none;
 }
 
 input:focus,
-select:focus {
-    border-color: #7c3aed;
-    box-shadow: 0 0 0 3px rgba(124,58,237,.08);
+select:focus{
+    border-color:#ff6b35;
 }
 
-/* PHOTO */
-
-.photo-options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    max-width: 750px;
-    margin: 0 auto 25px;
+.form-group{
+    margin-bottom:20px;
 }
 
-.photo-option {
-    border: 2px dashed #d9dce5;
-    border-radius: 20px;
-    padding: 35px 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: .2s;
-    background: #fafbff;
+.form-group label{
+    font-weight:700;
 }
 
-.photo-option:hover {
-    border-color: #7c3aed;
-    background: #f7f3ff;
-    transform: translateY(-2px);
+.photo-options{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    margin-top:20px;
 }
 
-.photo-option-icon {
-    font-size: 52px;
-    margin-bottom: 15px;
+.photo-option{
+    border:2px dashed #ccc;
+    border-radius:18px;
+    padding:30px 20px;
+    text-align:center;
+    background:#fafafa;
 }
 
-.photo-option h3 {
-    margin-bottom: 7px;
+.photo-option h3{
+    margin-bottom:10px;
 }
 
-.photo-option p {
-    color: #777;
-    font-size: 14px;
+.photo-option p{
+    color:#777;
+    font-size:14px;
+    margin-bottom:18px;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:800;
+    border-radius:12px;
+    padding:14px 22px;
+}
+
+.primary{
+    background:#ff6b35;
+    color:white;
+}
+
+.primary:hover{
+    background:#e95724;
+}
+
+.secondary{
+    background:#eceef4;
+    color:#333;
+}
+
+.secondary:hover{
+    background:#dddfea;
+}
+
+.navigation{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    margin-top:30px;
+}
+
+.navigation .right{
+    margin-left:auto;
+}
+
+button:disabled{
+    opacity:.45;
+    cursor:not-allowed;
 }
 
 /* CAMERA */
 
-.camera-box {
-    display: none;
-    max-width: 650px;
-    margin: 25px auto;
-    background: #111827;
-    border-radius: 20px;
-    overflow: hidden;
-    position: relative;
+.camera-area{
+    margin-top:25px;
+    display:none;
 }
 
-.camera-box.active {
-    display: block;
+.camera-area.active{
+    display:block;
 }
 
-#cameraVideo {
-    width: 100%;
-    display: block;
-    max-height: 500px;
-    object-fit: cover;
-    background: #000;
+.camera-box{
+    background:#111;
+    border-radius:18px;
+    overflow:hidden;
+    position:relative;
+    max-width:760px;
+    margin:auto;
 }
 
-.camera-actions {
-    padding: 18px;
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
+#cameraVideo{
+    width:100%;
+    display:block;
+    max-height:500px;
+    object-fit:cover;
+    background:#111;
 }
 
-.camera-button {
-    border: none;
-    border-radius: 999px;
-    padding: 13px 24px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
+.camera-controls{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:15px;
 }
 
-.take-photo {
-    background: #7c3aed;
-    color: white;
+.camera-selector{
+    margin:15px auto;
+    max-width:760px;
 }
 
-.stop-camera {
-    background: white;
-    color: #222;
+.camera-selector label{
+    display:block;
+    font-weight:800;
+    margin-bottom:7px;
 }
 
-.camera-error {
-    display: none;
-    background: #fff1f2;
-    color: #be123c;
-    padding: 15px;
-    border-radius: 12px;
-    margin: 15px auto;
-    max-width: 650px;
-    text-align: center;
+.camera-status{
+    text-align:center;
+    margin-top:12px;
+    font-weight:700;
+    color:#555;
 }
 
-.photo-preview {
-    display: none;
-    max-width: 500px;
-    margin: 25px auto;
-    text-align: center;
+.camera-error{
+    display:none;
+    margin:18px auto;
+    padding:18px;
+    border-radius:14px;
+    background:#fff0f0;
+    border:1px solid #ffb4b4;
+    color:#a40000;
+    max-width:760px;
+    line-height:1.6;
 }
 
-.photo-preview.active {
-    display: block;
+.camera-success{
+    display:none;
+    margin:18px auto;
+    padding:15px;
+    border-radius:14px;
+    background:#effff2;
+    border:1px solid #9ee6aa;
+    color:#18702a;
+    max-width:760px;
+    text-align:center;
+    font-weight:700;
 }
 
-.photo-preview img {
-    width: 100%;
-    max-height: 500px;
-    object-fit: contain;
-    border-radius: 18px;
-    background: #f1f1f1;
+.preview{
+    display:none;
+    margin:25px auto;
+    text-align:center;
 }
 
-.change-photo {
-    margin-top: 12px;
-    background: white;
-    border: 1px solid #ddd;
-    padding: 10px 18px;
-    border-radius: 10px;
-    cursor: pointer;
+.preview.active{
+    display:block;
+}
+
+.preview img{
+    max-width:350px;
+    width:100%;
+    border-radius:18px;
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
+}
+
+.file-label{
+    display:inline-block;
+    background:#ff6b35;
+    color:white;
+    padding:14px 22px;
+    border-radius:12px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+#galleryInput{
+    display:none;
 }
 
 /* GENERATION */
 
-.loading {
-    text-align: center;
-    padding: 50px 20px;
+.generation{
+    text-align:center;
 }
 
-.spinner {
-    width: 55px;
-    height: 55px;
-    border: 5px solid #e5e7eb;
-    border-top-color: #7c3aed;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin: 0 auto 20px;
+.loader{
+    width:55px;
+    height:55px;
+    border:5px solid #eee;
+    border-top-color:#ff6b35;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin:25px auto;
 }
 
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
     }
 }
 
-.preview-card {
-    max-width: 550px;
-    margin: 25px auto;
-    background: #f5f5f5;
-    border-radius: 20px;
-    padding: 20px;
-    text-align: center;
+.generated-preview{
+    text-align:center;
+    margin-top:20px;
 }
 
-.preview-card img {
-    width: 100%;
-    max-height: 500px;
-    object-fit: contain;
-    border-radius: 12px;
-}
-
-.preview-name {
-    margin-top: 15px;
-    font-size: 25px;
-    font-weight: bold;
-    color: #7c3aed;
+.generated-preview img{
+    max-width:500px;
+    width:100%;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
 
 /* FORMAT */
 
-.format-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    max-width: 750px;
-    margin: auto;
+.formats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
 }
 
-.format-card {
-    border: 2px solid #e5e7eb;
-    border-radius: 18px;
-    padding: 30px;
-    text-align: center;
-    cursor: pointer;
+.format{
+    border:3px solid #ddd;
+    border-radius:18px;
+    padding:30px;
+    text-align:center;
+    cursor:pointer;
 }
 
-.format-card:hover {
-    border-color: #a78bfa;
+.format.selected{
+    border-color:#ff6b35;
+    background:#fff5f0;
 }
 
-.format-card.selected {
-    border-color: #7c3aed;
-    background: #f5f3ff;
+.format h3{
+    font-size:28px;
+    margin-bottom:10px;
 }
 
-.format-size {
-    font-size: 42px;
-    font-weight: 800;
-    color: #7c3aed;
-}
-
-.format-price {
-    font-size: 25px;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-.format-description {
-    color: #777;
-    margin-top: 6px;
+.price{
+    color:#ff6b35;
+    font-size:25px;
+    font-weight:900;
 }
 
 /* SUMMARY */
 
-.summary {
-    background: #f8f7ff;
-    border-radius: 15px;
-    padding: 20px;
-    margin: 25px 0;
+.summary{
+    background:#f7f8fc;
+    border-radius:16px;
+    padding:20px;
+    margin-top:25px;
 }
 
-.summary-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 0;
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    padding:9px 0;
+    border-bottom:1px solid #ddd;
 }
 
-.summary-row.total {
-    border-top: 1px solid #ddd;
-    margin-top: 8px;
-    padding-top: 15px;
-    font-size: 20px;
-    font-weight: bold;
+.summary-row:last-child{
+    border-bottom:none;
 }
 
-/* BUTTONS */
-
-.navigation {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    gap: 15px;
+.confirmation{
+    text-align:center;
 }
 
-.button {
-    border: none;
-    border-radius: 12px;
-    padding: 15px 25px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .2s;
+.confirmation-icon{
+    font-size:75px;
+    margin-bottom:15px;
 }
 
-.button-primary {
-    background: #7c3aed;
-    color: white;
+.order-number{
+    display:inline-block;
+    background:#fff4ed;
+    color:#ff6b35;
+    padding:12px 20px;
+    border-radius:10px;
+    font-weight:900;
+    margin:20px 0;
 }
 
-.button-primary:hover {
-    background: #6d28d9;
-    transform: translateY(-1px);
+.note{
+    color:#666;
+    line-height:1.6;
+    margin-top:15px;
 }
 
-.button-secondary {
-    background: #eef0f4;
-    color: #333;
-}
+@media(max-width:750px){
 
-.button:disabled {
-    opacity: .45;
-    cursor: not-allowed;
-}
-
-/* CONFIRMATION */
-
-.confirmation {
-    text-align: center;
-    padding: 30px;
-}
-
-.confirmation-icon {
-    font-size: 75px;
-    margin-bottom: 20px;
-}
-
-.order-number {
-    display: inline-block;
-    margin: 20px 0;
-    padding: 12px 20px;
-    border-radius: 10px;
-    background: #f5f3ff;
-    color: #6d28d9;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-/* PRIVACY */
-
-.privacy {
-    background: #f8fafc;
-    border-radius: 12px;
-    padding: 15px;
-    color: #64748b;
-    font-size: 13px;
-    margin-top: 20px;
-}
-
-/* RESPONSIVE */
-
-@media(max-width: 750px) {
-
-    .page-title h1 {
-        font-size: 30px;
+    .themes{
+        grid-template-columns:1fr 1fr;
     }
 
-    .card {
-        padding: 22px 17px;
+    .photo-options,
+    .formats{
+        grid-template-columns:1fr;
     }
 
-    .themes-grid {
-        grid-template-columns: 1fr 1fr;
+    .step{
+        padding:20px;
     }
 
-    .photo-options {
-        grid-template-columns: 1fr;
-    }
-
-    .format-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .progress-label {
-        display: none;
-    }
-
-    .progress-step {
-        width: 14%;
+    h1{
+        font-size:27px;
     }
 }
 
-@media(max-width: 450px) {
+@media(max-width:500px){
 
-    .themes-grid {
-        grid-template-columns: 1fr;
+    .themes{
+        grid-template-columns:1fr;
     }
 
-    .navigation {
-        flex-direction: column-reverse;
+    .header-inner{
+        flex-direction:column;
     }
 
-    .navigation .button {
-        width: 100%;
+    .navigation{
+        flex-direction:column;
+    }
+
+    .navigation button{
+        width:100%;
     }
 }
 </style>
@@ -599,220 +499,201 @@ select:focus {
 <body>
 
 <header>
-    <a href="index.html" class="logo">My<span>Hikaya</span></a>
-    <a href="index.html" class="back-home">← Accueil</a>
+    <div class="header-inner">
+
+        <div class="logo">
+            MyHikaya
+        </div>
+
+        <a href="/index.html" class="back-home">
+            ← Retour à l'accueil
+        </a>
+
+    </div>
 </header>
 
-<main class="container">
+<div class="container">
 
-    <div class="page-title">
-        <h1>✨ Créez votre cadre</h1>
-        <p>Un prénom. Une aventure. Un souvenir à encadrer.</p>
-    </div>
+    <h1>✨ Créez votre cadre personnalisé</h1>
 
-    <!-- PROGRESSION -->
+    <p class="subtitle">
+        Une photo, un prénom, un univers… et MyHikaya crée votre souvenir.
+    </p>
 
     <div class="progress">
 
-        <div class="progress-step active" data-progress="1">
-            <div class="progress-number">1</div>
-            <div class="progress-label">Thème</div>
-        </div>
-
-        <div class="progress-step" data-progress="2">
-            <div class="progress-number">2</div>
-            <div class="progress-label">Prénom</div>
-        </div>
-
-        <div class="progress-step" data-progress="3">
-            <div class="progress-number">3</div>
-            <div class="progress-label">Photo</div>
-        </div>
-
-        <div class="progress-step" data-progress="4">
-            <div class="progress-number">4</div>
-            <div class="progress-label">Création</div>
-        </div>
-
-        <div class="progress-step" data-progress="5">
-            <div class="progress-number">5</div>
-            <div class="progress-label">Format</div>
-        </div>
-
-        <div class="progress-step" data-progress="6">
-            <div class="progress-number">6</div>
-            <div class="progress-label">Commande</div>
-        </div>
+        <div class="progress-item active" data-step="1">1. Thème</div>
+        <div class="progress-item" data-step="2">2. Prénom</div>
+        <div class="progress-item" data-step="3">3. Photo</div>
+        <div class="progress-item" data-step="4">4. Création</div>
+        <div class="progress-item" data-step="5">5. Format</div>
+        <div class="progress-item" data-step="6">6. Commande</div>
 
     </div>
 
 
-    <!-- ÉTAPE 1 -->
+    <!-- STEP 1 -->
 
     <section class="step active" id="step1">
 
-        <div class="card">
+        <h2>🎨 Choisissez un univers</h2>
 
-            <h2>🎨 Choisissez un univers</h2>
+        <div class="themes">
 
-            <p class="card-subtitle">
-                Sélectionnez le thème que vous souhaitez pour votre cadre.
-            </p>
-
-            <div class="themes-grid">
-
-                <div class="theme-card" data-theme="Explorateur de l'espace">
-                    <div class="theme-icon">🚀</div>
-                    <h3>Explorateur de l'espace</h3>
-                    <p>Planètes, étoiles et aventures spatiales</p>
-                </div>
-
-                <div class="theme-card" data-theme="Monde des dinosaures">
-                    <div class="theme-icon">🦖</div>
-                    <h3>Monde des dinosaures</h3>
-                    <p>Une aventure préhistorique</p>
-                </div>
-
-                <div class="theme-card" data-theme="Royaume fantastique">
-                    <div class="theme-icon">🏰</div>
-                    <h3>Royaume fantastique</h3>
-                    <p>Châteaux et grandes aventures</p>
-                </div>
-
-                <div class="theme-card" data-theme="Petit pilote">
-                    <div class="theme-icon">🏎️</div>
-                    <h3>Petit pilote</h3>
-                    <p>Vitesse et circuit automobile</p>
-                </div>
-
-                <div class="theme-card" data-theme="Aventure animale">
-                    <div class="theme-icon">🦁</div>
-                    <h3>Aventure animale</h3>
-                    <p>Au cœur de la nature</p>
-                </div>
-
-                <div class="theme-card" data-theme="Explorateur des océans">
-                    <div class="theme-icon">🌊</div>
-                    <h3>Explorateur des océans</h3>
-                    <p>Une aventure sous-marine</p>
-                </div>
-
+            <div class="theme" data-theme="Explorateur de l'espace">
+                <div class="theme-icon">🚀</div>
+                <div class="theme-title">Explorateur de l'espace</div>
             </div>
 
-            <div class="navigation">
-                <div></div>
-                <button class="button button-primary" id="next1" disabled>
-                    Continuer →
-                </button>
+            <div class="theme" data-theme="Monde des dinosaures">
+                <div class="theme-icon">🦖</div>
+                <div class="theme-title">Monde des dinosaures</div>
             </div>
+
+            <div class="theme" data-theme="Royaume fantastique">
+                <div class="theme-icon">🏰</div>
+                <div class="theme-title">Royaume fantastique</div>
+            </div>
+
+            <div class="theme" data-theme="Petit pilote">
+                <div class="theme-icon">🏎️</div>
+                <div class="theme-title">Petit pilote</div>
+            </div>
+
+            <div class="theme" data-theme="Aventure animale">
+                <div class="theme-icon">🦁</div>
+                <div class="theme-title">Aventure animale</div>
+            </div>
+
+            <div class="theme" data-theme="Explorateur des océans">
+                <div class="theme-icon">🌊</div>
+                <div class="theme-title">Explorateur des océans</div>
+            </div>
+
+        </div>
+
+        <div class="navigation">
+
+            <div></div>
+
+            <button class="primary" id="next1" disabled>
+                Continuer →
+            </button>
 
         </div>
 
     </section>
 
 
-    <!-- ÉTAPE 2 -->
+    <!-- STEP 2 -->
 
     <section class="step" id="step2">
 
-        <div class="card">
+        <h2>✏️ Le prénom de l'enfant</h2>
 
-            <h2>👦 Le prénom de l'enfant</h2>
+        <div class="form-group">
 
-            <p class="card-subtitle">
-                Entrez le prénom qui apparaîtra sur la création.
-            </p>
+            <label for="childName">
+                Prénom
+            </label>
 
-            <div class="form-group">
+            <input
+                type="text"
+                id="childName"
+                placeholder="Exemple : Yanis"
+                maxlength="40"
+                autocomplete="off"
+            >
 
-                <label for="childName">
-                    Prénom de l'enfant
-                </label>
+        </div>
 
-                <input
-                    type="text"
-                    id="childName"
-                    placeholder="Exemple : Yanis"
-                    maxlength="40"
-                    autocomplete="off"
-                >
+        <div class="navigation">
 
-            </div>
+            <button class="secondary" id="back2">
+                ← Retour
+            </button>
 
-            <div class="navigation">
-
-                <button class="button button-secondary" onclick="goToStep(1)">
-                    ← Retour
-                </button>
-
-                <button class="button button-primary" id="next2" disabled>
-                    Continuer →
-                </button>
-
-            </div>
+            <button class="primary" id="next2" disabled>
+                Continuer →
+            </button>
 
         </div>
 
     </section>
 
 
-    <!-- ÉTAPE 3 PHOTO -->
+    <!-- STEP 3 -->
 
     <section class="step" id="step3">
 
-        <div class="card">
+        <h2>📸 Ajoutez la photo de l'enfant</h2>
 
-            <h2>📸 Ajoutez la photo</h2>
-
-            <p class="card-subtitle">
-                Prenez une photo maintenant ou choisissez une photo déjà présente sur votre appareil.
-            </p>
-
-
-            <div class="photo-options">
-
-                <!-- VRAIE CAMERA -->
-
-                <div class="photo-option" id="openCameraButton">
-
-                    <div class="photo-option-icon">📷</div>
-
-                    <h3>Prendre une photo</h3>
-
-                    <p>
-                        Ouvrir la caméra
-                    </p>
-
-                </div>
+        <p style="text-align:center;color:#666;">
+            Vous pouvez utiliser directement la webcam de votre PC
+            ou choisir une photo enregistrée sur votre ordinateur.
+        </p>
 
 
-                <!-- GALERIE -->
+        <div class="photo-options">
 
-                <label for="galleryInput" class="photo-option">
+            <!-- CAMERA -->
 
-                    <div class="photo-option-icon">🖼️</div>
+            <div class="photo-option">
 
-                    <h3>Ajouter une photo</h3>
+                <div style="font-size:45px;">📷</div>
 
-                    <p>
-                        Choisir depuis l'appareil
-                    </p>
+                <h3>Webcam du PC</h3>
 
+                <p>
+                    Utilisez votre caméra pour prendre directement la photo.
+                </p>
+
+                <button
+                    type="button"
+                    class="primary"
+                    id="openCameraButton"
+                >
+                    📷 Ouvrir la caméra
+                </button>
+
+            </div>
+
+
+            <!-- GALLERY -->
+
+            <div class="photo-option">
+
+                <div style="font-size:45px;">🖼️</div>
+
+                <h3>Photo existante</h3>
+
+                <p>
+                    Sélectionnez une photo depuis votre ordinateur.
+                </p>
+
+                <label
+                    for="galleryInput"
+                    class="file-label"
+                >
+                    🖼️ Choisir une photo
                 </label>
 
                 <input
                     type="file"
                     id="galleryInput"
                     accept="image/*"
-                    style="display:none;"
                 >
 
             </div>
 
+        </div>
 
-            <!-- CAMERA LIVE -->
 
-            <div class="camera-box" id="cameraBox">
+        <!-- CAMERA -->
+
+        <div class="camera-area" id="cameraArea">
+
+            <div class="camera-box">
 
                 <video
                     id="cameraVideo"
@@ -821,402 +702,354 @@ select:focus {
                     muted
                 ></video>
 
-                <div class="camera-actions">
-
-                    <button
-                        type="button"
-                        class="camera-button take-photo"
-                        id="takePhotoButton"
-                    >
-                        📸 Prendre la photo
-                    </button>
-
-                    <button
-                        type="button"
-                        class="camera-button stop-camera"
-                        id="stopCameraButton"
-                    >
-                        ✕ Fermer
-                    </button>
-
-                </div>
-
             </div>
 
 
-            <div class="camera-error" id="cameraError"></div>
+            <div class="camera-selector" id="cameraSelectorBox">
 
-
-            <!-- APERCU -->
-
-            <div class="photo-preview" id="photoPreview">
-
-                <img id="previewImage" alt="Aperçu de la photo">
-
-                <br>
-
-                <button
-                    type="button"
-                    class="change-photo"
-                    id="changePhotoButton"
-                >
-                    🔄 Changer la photo
-                </button>
-
-            </div>
-
-
-            <div class="navigation">
-
-                <button
-                    class="button button-secondary"
-                    onclick="goToStep(2)"
-                >
-                    ← Retour
-                </button>
-
-                <button
-                    class="button button-primary"
-                    id="next3"
-                    disabled
-                >
-                    Continuer →
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ÉTAPE 4 -->
-
-    <section class="step" id="step4">
-
-        <div class="card">
-
-            <div id="loadingCreation" class="loading">
-
-                <div class="spinner"></div>
-
-                <h2>✨ Création de votre cadre...</h2>
-
-                <p class="card-subtitle">
-                    Préparation de votre création personnalisée.
-                </p>
-
-            </div>
-
-
-            <div id="creationPreview" style="display:none;">
-
-                <h2>🎨 Aperçu de votre création</h2>
-
-                <p class="card-subtitle">
-                    Voici un aperçu de votre personnalisation.
-                </p>
-
-                <div class="preview-card">
-
-                    <img
-                        id="creationImage"
-                        alt="Aperçu de la création"
-                    >
-
-                    <div
-                        class="preview-name"
-                        id="creationName"
-                    ></div>
-
-                </div>
-
-                <div class="navigation">
-
-                    <button
-                        class="button button-secondary"
-                        onclick="goToStep(3)"
-                    >
-                        ← Modifier
-                    </button>
-
-                    <button
-                        class="button button-primary"
-                        onclick="goToStep(5)"
-                    >
-                        Choisir le format →
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ÉTAPE 5 -->
-
-    <section class="step" id="step5">
-
-        <div class="card">
-
-            <h2>🖼️ Choisissez votre format</h2>
-
-            <p class="card-subtitle">
-                Sélectionnez le format de votre cadre.
-            </p>
-
-            <div class="format-grid">
-
-                <div class="format-card" data-format="A4">
-
-                    <div class="format-size">A4</div>
-
-                    <div>
-                        21 × 29,7 cm
-                    </div>
-
-                    <div class="format-price">
-                        1 200 DA
-                    </div>
-
-                    <div class="format-description">
-                        Format compact
-                    </div>
-
-                </div>
-
-
-                <div class="format-card" data-format="A3">
-
-                    <div class="format-size">A3</div>
-
-                    <div>
-                        29,7 × 42 cm
-                    </div>
-
-                    <div class="format-price">
-                        2 200 DA
-                    </div>
-
-                    <div class="format-description">
-                        Grand format
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="navigation">
-
-                <button
-                    class="button button-secondary"
-                    onclick="goToStep(4)"
-                >
-                    ← Retour
-                </button>
-
-                <button
-                    class="button button-primary"
-                    id="next5"
-                    disabled
-                >
-                    Continuer →
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ÉTAPE 6 -->
-
-    <section class="step" id="step6">
-
-        <div class="card">
-
-            <h2>📦 Finalisez votre commande</h2>
-
-            <p class="card-subtitle">
-                Indiquez vos coordonnées pour que MyHikaya puisse vous contacter.
-            </p>
-
-
-            <div class="summary">
-
-                <div class="summary-row">
-                    <span>Prénom</span>
-                    <strong id="summaryName"></strong>
-                </div>
-
-                <div class="summary-row">
-                    <span>Thème</span>
-                    <strong id="summaryTheme"></strong>
-                </div>
-
-                <div class="summary-row">
-                    <span>Format</span>
-                    <strong id="summaryFormat"></strong>
-                </div>
-
-                <div class="summary-row total">
-                    <span>Total</span>
-                    <strong id="summaryPrice"></strong>
-                </div>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="customerName">
-                    Nom et prénom
+                <label for="cameraSelect">
+                    🎥 Choisir la caméra
                 </label>
 
-                <input
-                    type="text"
-                    id="customerName"
-                    placeholder="Votre nom et prénom"
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="wilaya">
-                    Wilaya
-                </label>
-
-                <select id="wilaya">
-
-                    <option value="">Sélectionnez votre wilaya</option>
-
-                    <option>Adrar</option>
-                    <option>Chlef</option>
-                    <option>Laghouat</option>
-                    <option>Oum El Bouaghi</option>
-                    <option>Batna</option>
-                    <option>Béjaïa</option>
-                    <option>Biskra</option>
-                    <option>Béchar</option>
-                    <option>Blida</option>
-                    <option>Bouira</option>
-                    <option>Tamanrasset</option>
-                    <option>Tébessa</option>
-                    <option>Tlemcen</option>
-                    <option>Tiaret</option>
-                    <option>Tizi Ouzou</option>
-                    <option>Alger</option>
-                    <option>Djelfa</option>
-                    <option>Jijel</option>
-                    <option>Sétif</option>
-                    <option>Saïda</option>
-                    <option>Skikda</option>
-                    <option>Sidi Bel Abbès</option>
-                    <option>Annaba</option>
-                    <option>Guelma</option>
-                    <option>Constantine</option>
-                    <option>Médéa</option>
-                    <option>Mostaganem</option>
-                    <option>M'Sila</option>
-                    <option>Mascara</option>
-                    <option>Ouargla</option>
-                    <option>Oran</option>
-                    <option>El Bayadh</option>
-                    <option>Illizi</option>
-                    <option>Bordj Bou Arréridj</option>
-                    <option>Boumerdès</option>
-                    <option>El Tarf</option>
-                    <option>Tindouf</option>
-                    <option>Tissemsilt</option>
-                    <option>El Oued</option>
-                    <option>Khenchela</option>
-                    <option>Souk Ahras</option>
-                    <option>Tipaza</option>
-                    <option>Mila</option>
-                    <option>Aïn Defla</option>
-                    <option>Naâma</option>
-                    <option>Aïn Témouchent</option>
-                    <option>Ghardaïa</option>
-                    <option>Relizane</option>
-                    <option>Timimoun</option>
-                    <option>Bordj Badji Mokhtar</option>
-                    <option>Ouled Djellal</option>
-                    <option>Béni Abbès</option>
-                    <option>In Salah</option>
-                    <option>In Guezzam</option>
-                    <option>Touggourt</option>
-                    <option>Djanet</option>
-                    <option>El M'Ghair</option>
-                    <option>El Meniaa</option>
-
+                <select id="cameraSelect">
+                    <option value="">
+                        Détection des caméras...
+                    </option>
                 </select>
 
             </div>
 
 
-            <div class="form-group">
-
-                <label for="commune">
-                    Commune
-                </label>
-
-                <input
-                    type="text"
-                    id="commune"
-                    placeholder="Votre commune"
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="phone">
-                    Téléphone
-                </label>
-
-                <input
-                    type="tel"
-                    id="phone"
-                    placeholder="05 / 06 / 07 XX XX XX XX"
-                    inputmode="tel"
-                >
-
-            </div>
-
-
-            <div class="privacy">
-
-                🔒 Vos informations sont utilisées uniquement pour
-                traiter et confirmer votre commande MyHikaya.
-
-            </div>
-
-
-            <div class="navigation">
+            <div class="camera-controls">
 
                 <button
-                    class="button button-secondary"
-                    onclick="goToStep(5)"
+                    type="button"
+                    class="primary"
+                    id="takePhotoButton"
                 >
-                    ← Retour
+                    📸 Prendre la photo
                 </button>
 
                 <button
-                    class="button button-primary"
-                    id="confirmOrder"
+                    type="button"
+                    class="secondary"
+                    id="changeCameraButton"
                 >
-                    ✅ Confirmer ma commande
+                    🔄 Changer de caméra
+                </button>
+
+                <button
+                    type="button"
+                    class="secondary"
+                    id="closeCameraButton"
+                >
+                    ✕ Fermer
                 </button>
 
             </div>
+
+
+            <div
+                class="camera-status"
+                id="cameraStatus"
+            >
+                Préparation de la caméra...
+            </div>
+
+        </div>
+
+
+        <!-- ERROR -->
+
+        <div
+            class="camera-error"
+            id="cameraError"
+        ></div>
+
+
+        <!-- SUCCESS -->
+
+        <div
+            class="camera-success"
+            id="cameraSuccess"
+        >
+            ✅ Caméra détectée et activée.
+        </div>
+
+
+        <!-- PHOTO PREVIEW -->
+
+        <div
+            class="preview"
+            id="photoPreview"
+        >
+
+            <h3 style="margin-bottom:15px;">
+                ✅ Photo sélectionnée
+            </h3>
+
+            <img
+                id="previewImage"
+                alt="Aperçu de la photo"
+            >
+
+        </div>
+
+
+        <div class="navigation">
+
+            <button class="secondary" id="back3">
+                ← Retour
+            </button>
+
+            <button
+                class="primary"
+                id="next3"
+                disabled
+            >
+                Continuer →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- STEP 4 -->
+
+    <section class="step" id="step4">
+
+        <div class="generation" id="generation">
+
+            <h2>✨ Création de votre cadre</h2>
+
+            <p>
+                MyHikaya prépare votre création personnalisée…
+            </p>
+
+            <div class="loader"></div>
+
+        </div>
+
+        <div
+            class="generated-preview"
+            id="generatedPreview"
+            style="display:none;"
+        >
+
+            <h2>🎉 Votre création</h2>
+
+            <img
+                id="generatedImage"
+                alt="Création MyHikaya"
+            >
+
+            <p
+                id="generatedDescription"
+                style="margin-top:15px;color:#666;"
+            ></p>
+
+        </div>
+
+        <div class="navigation">
+
+            <button class="secondary" id="back4">
+                ← Retour
+            </button>
+
+            <button
+                class="primary"
+                id="next4"
+                disabled
+            >
+                Choisir le format →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- STEP 5 -->
+
+    <section class="step" id="step5">
+
+        <h2>🖼️ Choisissez votre format</h2>
+
+        <div class="formats">
+
+            <div
+                class="format"
+                data-format="A4"
+                data-price="1200"
+            >
+
+                <h3>A4</h3>
+
+                <p>
+                    21 × 29,7 cm
+                </p>
+
+                <div class="price">
+                    1 200 DA
+                </div>
+
+            </div>
+
+
+            <div
+                class="format"
+                data-format="A3"
+                data-price="2200"
+            >
+
+                <h3>A3</h3>
+
+                <p>
+                    29,7 × 42 cm
+                </p>
+
+                <div class="price">
+                    2 200 DA
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="navigation">
+
+            <button class="secondary" id="back5">
+                ← Retour
+            </button>
+
+            <button
+                class="primary"
+                id="next5"
+                disabled
+            >
+                Continuer →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- STEP 6 -->
+
+    <section class="step" id="step6">
+
+        <h2>📦 Informations de commande</h2>
+
+        <div class="form-group">
+
+            <label for="customerName">
+                Nom et prénom
+            </label>
+
+            <input
+                type="text"
+                id="customerName"
+                placeholder="Votre nom et prénom"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="wilaya">
+                Wilaya
+            </label>
+
+            <select id="wilaya">
+
+                <option value="">
+                    Sélectionnez votre wilaya
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="commune">
+                Commune
+            </label>
+
+            <input
+                type="text"
+                id="commune"
+                placeholder="Votre commune"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="phone">
+                Téléphone
+            </label>
+
+            <input
+                type="tel"
+                id="phone"
+                placeholder="05 XX XX XX XX"
+            >
+
+        </div>
+
+
+        <div class="summary">
+
+            <div class="summary-row">
+                <strong>Prénom</strong>
+                <span id="summaryChild"></span>
+            </div>
+
+            <div class="summary-row">
+                <strong>Thème</strong>
+                <span id="summaryTheme"></span>
+            </div>
+
+            <div class="summary-row">
+                <strong>Format</strong>
+                <span id="summaryFormat"></span>
+            </div>
+
+            <div class="summary-row">
+                <strong>Total</strong>
+                <strong id="summaryPrice"></strong>
+            </div>
+
+        </div>
+
+
+        <p class="note">
+            🔒 Vos informations et la photo sont utilisées uniquement
+            pour préparer votre création et traiter votre commande.
+            Nous vous contacterons par téléphone pour confirmer la commande
+            avant impression.
+        </p>
+
+
+        <div class="navigation">
+
+            <button class="secondary" id="back6">
+                ← Retour
+            </button>
+
+            <button
+                class="primary"
+                id="submitOrder"
+                disabled
+            >
+                ✅ Valider ma commande
+            </button>
 
         </div>
 
@@ -1225,38 +1058,45 @@ select:focus {
 
     <!-- CONFIRMATION -->
 
-    <section class="step" id="step7">
+    <section
+        class="step"
+        id="step7"
+    >
 
-        <div class="card confirmation">
+        <div class="confirmation">
 
             <div class="confirmation-icon">
                 🎉
             </div>
 
-            <h2>Commande enregistrée !</h2>
+            <h2>
+                Votre commande est enregistrée !
+            </h2>
 
-            <p class="card-subtitle">
-                Merci pour votre confiance.
-            </p>
-
-            <p>
-                Votre demande a bien été enregistrée.
-            </p>
-
-            <div class="order-number" id="orderNumber"></div>
+            <div class="order-number">
+                Commande <span id="orderNumber"></span>
+            </div>
 
             <p>
-                Un membre de l'équipe MyHikaya vous contactera
-                par téléphone pour confirmer votre commande
-                avant l'impression.
+                Merci pour votre confiance envers MyHikaya.
+            </p>
+
+            <p class="note">
+                Votre commande va être vérifiée.
+                Notre équipe vous contactera par téléphone afin
+                de confirmer les informations avant l'impression
+                de votre cadre.
             </p>
 
             <br>
 
             <a
-                href="index.html"
-                class="button button-primary"
-                style="display:inline-block;text-decoration:none;"
+                href="/index.html"
+                class="primary"
+                style="
+                    display:inline-block;
+                    text-decoration:none;
+                "
             >
                 ← Retour à l'accueil
             </a>
@@ -1265,50 +1105,58 @@ select:focus {
 
     </section>
 
-</main>
+</div>
 
 
 <script>
 
-/* ============================
-   DONNÉES
-============================ */
+/* =========================================================
+   VARIABLES
+========================================================= */
 
 let currentStep = 1;
 
 let selectedTheme = "";
 let childName = "";
 let selectedPhoto = null;
+
 let selectedFormat = "";
 let selectedPrice = 0;
 
 let cameraStream = null;
+let cameras = [];
+
+let generatedImageURL = null;
 
 
-/* ============================
+/* =========================================================
    ELEMENTS
-============================ */
+========================================================= */
 
-const cameraButton =
-    document.getElementById("openCameraButton");
+const steps =
+    document.querySelectorAll(".step");
 
-const cameraBox =
-    document.getElementById("cameraBox");
+const progressItems =
+    document.querySelectorAll(".progress-item");
+
+
+const cameraArea =
+    document.getElementById("cameraArea");
 
 const cameraVideo =
     document.getElementById("cameraVideo");
 
-const takePhotoButton =
-    document.getElementById("takePhotoButton");
+const cameraSelect =
+    document.getElementById("cameraSelect");
 
-const stopCameraButton =
-    document.getElementById("stopCameraButton");
+const cameraStatus =
+    document.getElementById("cameraStatus");
 
 const cameraError =
     document.getElementById("cameraError");
 
-const galleryInput =
-    document.getElementById("galleryInput");
+const cameraSuccess =
+    document.getElementById("cameraSuccess");
 
 const photoPreview =
     document.getElementById("photoPreview");
@@ -1316,212 +1164,685 @@ const photoPreview =
 const previewImage =
     document.getElementById("previewImage");
 
-const changePhotoButton =
-    document.getElementById("changePhotoButton");
-
-const next3 =
-    document.getElementById("next3");
+const galleryInput =
+    document.getElementById("galleryInput");
 
 
-/* ============================
+/* =========================================================
    NAVIGATION
-============================ */
+========================================================= */
 
-function goToStep(step) {
+function showStep(stepNumber){
 
-    stopCamera();
+    currentStep = stepNumber;
 
-    document.querySelectorAll(".step")
-        .forEach(element => {
-            element.classList.remove("active");
-        });
+    steps.forEach(step => {
+        step.classList.remove("active");
+    });
 
     const target =
-        document.getElementById("step" + step);
+        document.getElementById("step" + stepNumber);
 
-    if (target) {
+    if(target){
         target.classList.add("active");
     }
 
-    currentStep = step;
+    progressItems.forEach(item => {
 
-    updateProgress();
+        const step =
+            Number(item.dataset.step);
+
+        item.classList.toggle(
+            "active",
+            step === stepNumber
+        );
+
+    });
 
     window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+        top:0,
+        behavior:"smooth"
     });
-
-    if (step === 4) {
-        startCreation();
-    }
-
-    if (step === 6) {
-        updateSummary();
-    }
 }
 
 
-function updateProgress() {
+/* =========================================================
+   STEP 1 — THEME
+========================================================= */
 
-    document.querySelectorAll(".progress-step")
-        .forEach(element => {
+const themes =
+    document.querySelectorAll(".theme");
 
-            const number =
-                Number(element.dataset.progress);
+const next1 =
+    document.getElementById("next1");
 
-            element.classList.remove("active");
-            element.classList.remove("done");
+themes.forEach(theme => {
 
-            if (number < currentStep) {
-                element.classList.add("done");
-            }
+    theme.addEventListener("click", () => {
 
-            if (number === currentStep) {
-                element.classList.add("active");
-            }
+        themes.forEach(t =>
+            t.classList.remove("selected")
+        );
 
-        });
-}
-
-
-/* ============================
-   THEME
-============================ */
-
-document.querySelectorAll(".theme-card")
-.forEach(card => {
-
-    card.addEventListener("click", () => {
-
-        document.querySelectorAll(".theme-card")
-            .forEach(item =>
-                item.classList.remove("selected")
-            );
-
-        card.classList.add("selected");
+        theme.classList.add("selected");
 
         selectedTheme =
-            card.dataset.theme;
+            theme.dataset.theme;
 
-        document.getElementById("next1")
-            .disabled = false;
+        next1.disabled = false;
+
     });
 
 });
 
 
-document.getElementById("next1")
-.addEventListener("click", () => {
+next1.addEventListener("click", () => {
 
-    if (!selectedTheme) return;
-
-    goToStep(2);
+    showStep(2);
 
 });
 
 
-/* ============================
-   PRENOM
-============================ */
+/* =========================================================
+   STEP 2 — NAME
+========================================================= */
 
 const childNameInput =
     document.getElementById("childName");
+
+const next2 =
+    document.getElementById("next2");
+
 
 childNameInput.addEventListener("input", () => {
 
     childName =
         childNameInput.value.trim();
 
-    document.getElementById("next2")
-        .disabled = childName.length < 2;
+    next2.disabled =
+        childName.length < 2;
 
 });
 
 
-document.getElementById("next2")
+next2.addEventListener("click", () => {
+
+    showStep(3);
+
+});
+
+
+document.getElementById("back2")
 .addEventListener("click", () => {
 
-    if (childName.length < 2) return;
-
-    goToStep(3);
+    showStep(1);
 
 });
 
 
-/* ============================
-   CAMERA REELLE
-============================ */
+/* =========================================================
+   CAMERA — UTILITAIRES
+========================================================= */
 
-cameraButton.addEventListener("click", async () => {
+function clearCameraMessages(){
 
     cameraError.style.display = "none";
+    cameraSuccess.style.display = "none";
 
-    try {
+}
 
-        if (!navigator.mediaDevices ||
-            !navigator.mediaDevices.getUserMedia) {
+
+function showCameraError(message){
+
+    cameraError.innerHTML = message;
+
+    cameraError.style.display = "block";
+
+    cameraSuccess.style.display = "none";
+
+}
+
+
+function showCameraSuccess(message){
+
+    cameraSuccess.textContent =
+        message;
+
+    cameraSuccess.style.display =
+        "block";
+
+    cameraError.style.display =
+        "none";
+
+}
+
+
+/* =========================================================
+   DETECTION DES CAMERAS
+========================================================= */
+
+async function detectCameras(){
+
+    try{
+
+        if(
+            !navigator.mediaDevices ||
+            !navigator.mediaDevices.enumerateDevices
+        ){
 
             throw new Error(
-                "Votre navigateur ne permet pas l'utilisation directe de la caméra."
+                "enumerate-not-supported"
             );
+
         }
 
+
+        const devices =
+            await navigator.mediaDevices.enumerateDevices();
+
+
+        cameras =
+            devices.filter(
+                device =>
+                    device.kind === "videoinput"
+            );
+
+
+        cameraSelect.innerHTML = "";
+
+
+        if(cameras.length === 0){
+
+            cameraSelect.innerHTML =
+                "<option>Aucune webcam détectée</option>";
+
+            throw new Error(
+                "no-camera"
+            );
+
+        }
+
+
+        cameras.forEach(
+            (camera,index) => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value =
+                    camera.deviceId;
+
+                option.textContent =
+                    camera.label ||
+                    `Webcam ${index + 1}`;
+
+                cameraSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+
+        cameraStatus.textContent =
+            cameras.length === 1
+            ? "1 webcam détectée."
+            : `${cameras.length} webcams détectées.`;
+
+        return cameras;
+
+    }catch(error){
+
+        console.error(
+            "Erreur détection caméra :",
+            error
+        );
+
+        if(error.message === "no-camera"){
+
+            showCameraError(`
+                <strong>❌ Aucune webcam détectée.</strong><br><br>
+                Vérifiez que votre webcam est bien connectée à votre PC.
+                Si vous utilisez une webcam USB, débranchez-la puis
+                rebranchez-la et réessayez.
+            `);
+
+        }else{
+
+            showCameraError(`
+                <strong>❌ Votre navigateur ne peut pas détecter la webcam.</strong><br><br>
+                Vérifiez que vous utilisez Google Chrome, Microsoft Edge
+                ou un navigateur récent et que la page est ouverte en HTTPS.
+            `);
+
+        }
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================================
+   OUVRIR CAMERA
+========================================================= */
+
+async function openCamera(deviceId = null){
+
+    clearCameraMessages();
+
+    cameraArea.classList.add("active");
+
+    cameraStatus.textContent =
+        "Recherche de votre webcam…";
+
+
+    try{
+
+        if(
+            !navigator.mediaDevices ||
+            !navigator.mediaDevices.getUserMedia
+        ){
+
+            throw new Error(
+                "unsupported"
+            );
+
+        }
+
+
+        if(!window.isSecureContext){
+
+            throw new Error(
+                "not-secure"
+            );
+
+        }
+
+
         /*
-         * On demande la caméra avant.
-         * Sur téléphone, cela ouvre normalement
-         * la caméra selfie.
-         */
+        IMPORTANT :
+        On arrête d'abord l'ancienne caméra.
+        */
+
+        stopCamera(false);
+
+
+        let constraints = {
+
+            video: {
+
+                width:{
+                    ideal:1280
+                },
+
+                height:{
+                    ideal:720
+                }
+
+            },
+
+            audio:false
+
+        };
+
+
+        /*
+        Si une caméra précise est sélectionnée,
+        on l'utilise.
+        */
+
+        if(deviceId){
+
+            constraints.video.deviceId = {
+                exact:deviceId
+            };
+
+        }
+
+
+        cameraStatus.textContent =
+            "Demande d'accès à la webcam…";
+
 
         cameraStream =
-            await navigator.mediaDevices.getUserMedia({
-                video: {
-                    facingMode: "user",
-                    width: {
-                        ideal: 1280
-                    },
-                    height: {
-                        ideal: 720
-                    }
-                },
-                audio: false
-            });
+            await navigator.mediaDevices
+            .getUserMedia(constraints);
+
 
         cameraVideo.srcObject =
             cameraStream;
 
-        cameraBox.classList.add("active");
-
-        photoPreview.classList.remove("active");
 
         await cameraVideo.play();
 
-        cameraButton.style.display = "none";
 
-    } catch (error) {
+        /*
+        Maintenant que l'autorisation est donnée,
+        on peut récupérer les vrais noms des caméras.
+        */
 
-        console.error(error);
+        await detectCameras();
 
-        cameraError.textContent =
-            "Impossible d'ouvrir la caméra. Vérifiez que vous avez autorisé l'accès à la caméra dans votre navigateur.";
 
-        cameraError.style.display = "block";
+        /*
+        Sélectionner automatiquement la caméra
+        actuellement utilisée.
+        */
+
+        const currentTrack =
+            cameraStream.getVideoTracks()[0];
+
+        if(currentTrack){
+
+            const settings =
+                currentTrack.getSettings();
+
+            if(settings.deviceId){
+
+                cameraSelect.value =
+                    settings.deviceId;
+
+            }
+
+        }
+
+
+        cameraStatus.textContent =
+            "🎥 Webcam active — vous pouvez prendre la photo.";
+
+        showCameraSuccess(
+            "✅ Webcam détectée et activée."
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "Erreur caméra :",
+            error
+        );
+
+
+        cameraArea.classList.add("active");
+
+
+        switch(error.name){
+
+            case "NotAllowedError":
+
+                showCameraError(`
+                    <strong>🔐 Accès à la caméra refusé.</strong><br><br>
+
+                    Chrome ou Windows bloque probablement l'accès à votre webcam.<br><br>
+
+                    <strong>Sur Chrome :</strong><br>
+                    1. Cliquez sur 🔒 à gauche de l'adresse du site.<br>
+                    2. Ouvrez <strong>Paramètres du site</strong>.<br>
+                    3. Autorisez <strong>Caméra</strong>.<br>
+                    4. Rechargez la page avec <strong>Ctrl + F5</strong>.<br><br>
+
+                    <strong>Sur Windows :</strong><br>
+                    Paramètres → Confidentialité et sécurité →
+                    Caméra → activez l'accès à la caméra.
+                `);
+
+                break;
+
+
+            case "NotFoundError":
+
+                showCameraError(`
+                    <strong>❌ Aucune webcam disponible.</strong><br><br>
+
+                    Aucune caméra n'a été trouvée sur cet ordinateur.
+                    Vérifiez que votre webcam est connectée et reconnue
+                    par Windows.
+                `);
+
+                break;
+
+
+            case "NotReadableError":
+
+            case "TrackStartError":
+
+                showCameraError(`
+                    <strong>⚠️ La webcam est déjà utilisée.</strong><br><br>
+
+                    Une autre application utilise probablement votre caméra.
+                    Fermez Zoom, Microsoft Teams, Google Meet, Skype ou
+                    toute autre application utilisant la webcam,
+                    puis réessayez.
+                `);
+
+                break;
+
+
+            case "OverconstrainedError":
+
+                showCameraError(`
+                    <strong>⚠️ Cette caméra ne peut pas être utilisée avec
+                    les réglages actuels.</strong><br><br>
+
+                    Essayez une autre caméra dans la liste.
+                `);
+
+                break;
+
+
+            case "SecurityError":
+
+                showCameraError(`
+                    <strong>🔒 Accès caméra bloqué pour des raisons de sécurité.</strong><br><br>
+
+                    Ouvrez MyHikaya depuis l'adresse HTTPS officielle
+                    du site et non depuis un fichier HTML enregistré
+                    directement sur votre ordinateur.
+                `);
+
+                break;
+
+
+            case "not-secure":
+
+                showCameraError(`
+                    <strong>🔒 Connexion non sécurisée.</strong><br><br>
+
+                    L'utilisation directe de la webcam nécessite une
+                    page sécurisée HTTPS.
+                `);
+
+                break;
+
+
+            case "unsupported":
+
+                showCameraError(`
+                    <strong>❌ Navigateur non compatible.</strong><br><br>
+
+                    Utilisez une version récente de Google Chrome
+                    ou Microsoft Edge.
+                `);
+
+                break;
+
+
+            default:
+
+                showCameraError(`
+                    <strong>❌ Impossible d'ouvrir la webcam.</strong><br><br>
+
+                    Une erreur inattendue est survenue.<br>
+                    Vérifiez les autorisations de caméra de votre navigateur
+                    et de Windows, puis réessayez.
+                `);
+
+        }
 
     }
+
+}
+
+
+/* =========================================================
+   BOUTON OUVRIR CAMERA
+========================================================= */
+
+document
+.getElementById("openCameraButton")
+.addEventListener("click", async () => {
+
+    await openCamera();
 
 });
 
 
-/* ============================
-   PRENDRE LA PHOTO
-============================ */
+/* =========================================================
+   CHANGEMENT DE CAMERA
+========================================================= */
 
-takePhotoButton.addEventListener("click", () => {
+cameraSelect.addEventListener(
+    "change",
+    async () => {
 
-    if (!cameraStream) return;
+        const deviceId =
+            cameraSelect.value;
 
-    const canvas =
-        document.createElement("canvas");
+        if(!deviceId){
+            return;
+        }
+
+        await openCamera(deviceId);
+
+    }
+);
+
+
+/* =========================================================
+   BOUTON CHANGER CAMERA
+========================================================= */
+
+document
+.getElementById("changeCameraButton")
+.addEventListener("click", async () => {
+
+    if(cameras.length < 2){
+
+        await detectCameras();
+
+        if(cameras.length < 2){
+
+            showCameraError(`
+                <strong>ℹ️ Une seule webcam est disponible.</strong><br><br>
+                Si vous avez plusieurs webcams connectées,
+                vérifiez qu'elles sont bien reconnues par Windows.
+            `);
+
+            return;
+
+        }
+
+    }
+
+
+    const currentIndex =
+        cameras.findIndex(
+            camera =>
+                camera.deviceId ===
+                cameraSelect.value
+        );
+
+
+    const nextIndex =
+        currentIndex >= 0
+        ? (currentIndex + 1) % cameras.length
+        : 0;
+
+
+    const nextCamera =
+        cameras[nextIndex];
+
+
+    cameraSelect.value =
+        nextCamera.deviceId;
+
+
+    await openCamera(
+        nextCamera.deviceId
+    );
+
+});
+
+
+/* =========================================================
+   FERMER CAMERA
+========================================================= */
+
+function stopCamera(clearVideo = true){
+
+    if(cameraStream){
+
+        cameraStream
+        .getTracks()
+        .forEach(track => {
+
+            track.stop();
+
+        });
+
+        cameraStream = null;
+
+    }
+
+
+    if(clearVideo){
+
+        cameraVideo.srcObject =
+            null;
+
+    }
+
+
+    cameraStatus.textContent =
+        "Caméra arrêtée.";
+
+}
+
+
+document
+.getElementById("closeCameraButton")
+.addEventListener("click", () => {
+
+    stopCamera();
+
+    cameraArea.classList.remove("active");
+
+    clearCameraMessages();
+
+});
+
+
+/* =========================================================
+   PRENDRE PHOTO
+========================================================= */
+
+document
+.getElementById("takePhotoButton")
+.addEventListener("click", () => {
+
+    if(!cameraStream){
+
+        showCameraError(`
+            <strong>⚠️ La caméra n'est pas active.</strong><br><br>
+            Cliquez d'abord sur « Ouvrir la caméra ».
+        `);
+
+        return;
+
+    }
+
 
     const width =
         cameraVideo.videoWidth;
@@ -1529,11 +1850,33 @@ takePhotoButton.addEventListener("click", () => {
     const height =
         cameraVideo.videoHeight;
 
-    canvas.width = width;
-    canvas.height = height;
+
+    if(!width || !height){
+
+        showCameraError(`
+            <strong>⚠️ La vidéo n'est pas encore prête.</strong><br><br>
+            Attendez quelques secondes puis réessayez.
+        `);
+
+        return;
+
+    }
+
+
+    const canvas =
+        document.createElement("canvas");
+
+
+    canvas.width =
+        width;
+
+    canvas.height =
+        height;
+
 
     const context =
         canvas.getContext("2d");
+
 
     context.drawImage(
         cameraVideo,
@@ -1543,78 +1886,76 @@ takePhotoButton.addEventListener("click", () => {
         height
     );
 
-    canvas.toBlob(blob => {
 
-        if (!blob) return;
+    canvas.toBlob(
+        blob => {
 
-        selectedPhoto =
-            new File(
-                [blob],
-                "myhikaya-photo.jpg",
-                {
-                    type: "image/jpeg"
-                }
+            if(!blob){
+
+                showCameraError(`
+                    <strong>❌ Impossible de capturer la photo.</strong>
+                `);
+
+                return;
+
+            }
+
+
+            selectedPhoto =
+                new File(
+                    [blob],
+                    "myhikaya-photo.jpg",
+                    {
+                        type:"image/jpeg"
+                    }
+                );
+
+
+            const imageURL =
+                URL.createObjectURL(
+                    selectedPhoto
+                );
+
+
+            previewImage.src =
+                imageURL;
+
+
+            photoPreview.classList.add(
+                "active"
             );
 
-        const imageURL =
-            URL.createObjectURL(selectedPhoto);
 
-        previewImage.src =
-            imageURL;
+            document
+            .getElementById("next3")
+            .disabled = false;
 
-        photoPreview.classList.add("active");
 
-        next3.disabled = false;
+            stopCamera();
 
-        stopCamera();
 
-    }, "image/jpeg", 0.92);
+            cameraArea.classList.remove(
+                "active"
+            );
+
+
+            showCameraSuccess(
+                "✅ Photo capturée avec succès."
+            );
+
+        },
+
+        "image/jpeg",
+
+        0.92
+    );
 
 });
 
 
-/* ============================
-   FERMER CAMERA
-============================ */
-
-stopCameraButton.addEventListener(
-    "click",
-    () => {
-
-        stopCamera();
-
-    }
-);
-
-
-function stopCamera() {
-
-    if (cameraStream) {
-
-        cameraStream
-            .getTracks()
-            .forEach(track => {
-                track.stop();
-            });
-
-        cameraStream = null;
-
-    }
-
-    if (cameraVideo) {
-        cameraVideo.srcObject = null;
-    }
-
-    cameraBox.classList.remove("active");
-
-    cameraButton.style.display = "";
-
-}
-
-
-/* ============================
+/* =========================================================
    GALERIE
-============================ */
+========================================================= */
 
 galleryInput.addEventListener(
     "change",
@@ -1623,313 +1964,551 @@ galleryInput.addEventListener(
         const file =
             event.target.files[0];
 
-        if (!file) return;
-
-        handlePhoto(file);
-
-    }
-);
+        if(!file){
+            return;
+        }
 
 
-function handlePhoto(file) {
+        if(!file.type.startsWith("image/")){
 
-    if (!file) return;
+            showCameraError(`
+                <strong>❌ Fichier non valide.</strong><br><br>
+                Veuillez sélectionner une image JPG, PNG ou similaire.
+            `);
 
-    if (!file.type.startsWith("image/")) {
+            return;
 
-        alert(
-            "Veuillez sélectionner une image."
-        );
+        }
 
-        return;
-    }
 
-    selectedPhoto = file;
+        selectedPhoto =
+            file;
 
-    const reader =
-        new FileReader();
 
-    reader.onload = event => {
+        const imageURL =
+            URL.createObjectURL(file);
+
 
         previewImage.src =
-            event.target.result;
-
-        photoPreview.classList.add("active");
-
-        next3.disabled = false;
-
-    };
-
-    reader.readAsDataURL(file);
-
-}
+            imageURL;
 
 
-/* ============================
-   CHANGER PHOTO
-============================ */
+        photoPreview.classList.add(
+            "active"
+        );
 
-changePhotoButton.addEventListener(
-    "click",
-    () => {
 
-        selectedPhoto = null;
+        document
+        .getElementById("next3")
+        .disabled = false;
 
-        next3.disabled = true;
 
-        photoPreview.classList.remove("active");
-
-        galleryInput.value = "";
+        clearCameraMessages();
 
     }
 );
 
 
-/* ============================
-   CONTINUER PHOTO
-============================ */
+/* =========================================================
+   STEP 3 NAVIGATION
+========================================================= */
 
-next3.addEventListener("click", () => {
+document
+.getElementById("back3")
+.addEventListener("click", () => {
 
-    if (!selectedPhoto) return;
+    stopCamera();
 
-    goToStep(4);
+    cameraArea.classList.remove(
+        "active"
+    );
+
+    showStep(2);
 
 });
 
 
-/* ============================
-   CREATION
-============================ */
+document
+.getElementById("next3")
+.addEventListener("click", () => {
 
-function startCreation() {
+    stopCamera();
 
-    document.getElementById(
-        "loadingCreation"
-    ).style.display = "block";
+    cameraArea.classList.remove(
+        "active"
+    );
 
-    document.getElementById(
-        "creationPreview"
-    ).style.display = "none";
+    showStep(4);
 
+    startGeneration();
+
+});
+
+
+/* =========================================================
+   GENERATION
+========================================================= */
+
+function startGeneration(){
+
+    const generation =
+        document.getElementById("generation");
+
+    const generatedPreview =
+        document.getElementById(
+            "generatedPreview"
+        );
+
+    const generatedImage =
+        document.getElementById(
+            "generatedImage"
+        );
+
+    const generatedDescription =
+        document.getElementById(
+            "generatedDescription"
+        );
+
+
+    generation.style.display =
+        "block";
+
+    generatedPreview.style.display =
+        "none";
+
+
+    /*
+    VERSION ACTUELLE :
+    On utilise temporairement la photo
+    du client comme aperçu.
+
+    Plus tard :
+    cette partie sera reliée à GEMINI
+    pour générer le véritable visuel.
+    */
 
     setTimeout(() => {
-
-        const creationImage =
-            document.getElementById(
-                "creationImage"
-            );
 
         const imageURL =
             URL.createObjectURL(
                 selectedPhoto
             );
 
-        creationImage.src =
+
+        generatedImage.src =
             imageURL;
 
-        document.getElementById(
-            "creationName"
-        ).textContent =
-            childName;
+
+        generatedDescription.textContent =
+            `${childName} — ${selectedTheme}`;
 
 
-        document.getElementById(
-            "loadingCreation"
-        ).style.display = "none";
+        generation.style.display =
+            "none";
 
-        document.getElementById(
-            "creationPreview"
-        ).style.display = "block";
+        generatedPreview.style.display =
+            "block";
 
-    }, 1800);
+
+        document
+        .getElementById("next4")
+        .disabled = false;
+
+
+    },1500);
 
 }
 
 
-/* ============================
-   FORMAT
-============================ */
+document
+.getElementById("back4")
+.addEventListener("click", () => {
 
-document.querySelectorAll(".format-card")
-.forEach(card => {
+    showStep(3);
 
-    card.addEventListener("click", () => {
+});
 
-        document.querySelectorAll(".format-card")
-            .forEach(item =>
-                item.classList.remove("selected")
-            );
 
-        card.classList.add("selected");
+document
+.getElementById("next4")
+.addEventListener("click", () => {
+
+    showStep(5);
+
+});
+
+
+/* =========================================================
+   STEP 5 — FORMAT
+========================================================= */
+
+const formats =
+    document.querySelectorAll(".format");
+
+const next5 =
+    document.getElementById("next5");
+
+
+formats.forEach(format => {
+
+    format.addEventListener("click", () => {
+
+        formats.forEach(f =>
+            f.classList.remove("selected")
+        );
+
+        format.classList.add("selected");
 
         selectedFormat =
-            card.dataset.format;
+            format.dataset.format;
 
         selectedPrice =
-            selectedFormat === "A4"
-                ? 1200
-                : 2200;
+            Number(format.dataset.price);
 
-        document.getElementById("next5")
-            .disabled = false;
+        next5.disabled = false;
 
     });
 
 });
 
 
-document.getElementById("next5")
-.addEventListener("click", () => {
+next5.addEventListener("click", () => {
 
-    if (!selectedFormat) return;
+    updateSummary();
 
-    goToStep(6);
+    showStep(6);
 
 });
 
 
-/* ============================
-   RESUME COMMANDE
-============================ */
+document
+.getElementById("back5")
+.addEventListener("click", () => {
 
-function updateSummary() {
+    showStep(4);
 
-    document.getElementById(
-        "summaryName"
-    ).textContent =
+});
+
+
+/* =========================================================
+   WILAYAS
+========================================================= */
+
+const wilayas = [
+
+"Adrar",
+"Chlef",
+"Laghouat",
+"Oum El Bouaghi",
+"Batna",
+"Béjaïa",
+"Biskra",
+"Béchar",
+"Blida",
+"Bouira",
+"Tamanrasset",
+"Tébessa",
+"Tlemcen",
+"Tiaret",
+"Tizi Ouzou",
+"Alger",
+"Djelfa",
+"Jijel",
+"Sétif",
+"Saïda",
+"Skikda",
+"Sidi Bel Abbès",
+"Annaba",
+"Guelma",
+"Constantine",
+"Médéa",
+"Mostaganem",
+"M'Sila",
+"Mascara",
+"Ouargla",
+"Oran",
+"El Bayadh",
+"Illizi",
+"Bordj Bou Arréridj",
+"Boumerdès",
+"El Tarf",
+"Tindouf",
+"Tissemsilt",
+"El Oued",
+"Khenchela",
+"Souk Ahras",
+"Tipaza",
+"Mila",
+"Aïn Defla",
+"Naâma",
+"Aïn Témouchent",
+"Ghardaïa",
+"Relizane",
+"Timimoun",
+"Bordj Badji Mokhtar",
+"Ouled Djellal",
+"Béni Abbès",
+"In Salah",
+"In Guezzam",
+"El Meniaa",
+"El Meghaier",
+"El Menia"
+
+];
+
+
+const wilayaSelect =
+    document.getElementById("wilaya");
+
+
+wilayas.forEach(wilaya => {
+
+    const option =
+        document.createElement("option");
+
+    option.value =
+        wilaya;
+
+    option.textContent =
+        wilaya;
+
+    wilayaSelect.appendChild(
+        option
+    );
+
+});
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+function updateSummary(){
+
+    document
+    .getElementById("summaryChild")
+    .textContent =
         childName;
 
-    document.getElementById(
-        "summaryTheme"
-    ).textContent =
+    document
+    .getElementById("summaryTheme")
+    .textContent =
         selectedTheme;
 
-    document.getElementById(
-        "summaryFormat"
-    ).textContent =
+    document
+    .getElementById("summaryFormat")
+    .textContent =
         selectedFormat;
 
-    document.getElementById(
-        "summaryPrice"
-    ).textContent =
+    document
+    .getElementById("summaryPrice")
+    .textContent =
         selectedPrice.toLocaleString("fr-FR")
         + " DA";
 
 }
 
 
-/* ============================
-   CONFIRMATION
-============================ */
+/* =========================================================
+   FORM VALIDATION
+========================================================= */
 
-document.getElementById("confirmOrder")
-.addEventListener("click", () => {
-
-    const customerName =
-        document.getElementById(
-            "customerName"
-        ).value.trim();
-
-    const wilaya =
-        document.getElementById(
-            "wilaya"
-        ).value;
-
-    const commune =
-        document.getElementById(
-            "commune"
-        ).value.trim();
-
-    const phone =
-        document.getElementById(
-            "phone"
-        ).value.trim();
-
-
-    if (!customerName) {
-
-        alert(
-            "Veuillez entrer votre nom et prénom."
-        );
-
-        return;
-    }
-
-
-    if (!wilaya) {
-
-        alert(
-            "Veuillez sélectionner votre wilaya."
-        );
-
-        return;
-    }
-
-
-    if (!commune) {
-
-        alert(
-            "Veuillez entrer votre commune."
-        );
-
-        return;
-    }
-
-
-    if (!phone) {
-
-        alert(
-            "Veuillez entrer votre numéro de téléphone."
-        );
-
-        return;
-    }
-
-
-    const randomNumber =
-        Math.floor(
-            100000 +
-            Math.random() * 900000
-        );
-
-    const orderNumber =
-        "MH-" + randomNumber;
-
-
+const customerName =
     document.getElementById(
-        "orderNumber"
-    ).textContent =
-        orderNumber;
+        "customerName"
+    );
 
+const commune =
+    document.getElementById(
+        "commune"
+    );
 
-    console.log(
-        "COMMANDE MYHIKAYA",
-        {
-            orderNumber,
-            childName,
-            selectedTheme,
-            selectedFormat,
-            selectedPrice,
-            customerName,
-            wilaya,
-            commune,
-            phone,
-            photo: selectedPhoto
-        }
+const phone =
+    document.getElementById(
+        "phone"
+    );
+
+const submitOrder =
+    document.getElementById(
+        "submitOrder"
     );
 
 
-    goToStep(7);
+function validateOrderForm(){
+
+    const nameOK =
+        customerName.value.trim().length >= 2;
+
+    const wilayaOK =
+        wilayaSelect.value !== "";
+
+    const communeOK =
+        commune.value.trim().length >= 2;
+
+    const phoneOK =
+        phone.value.trim().length >= 8;
+
+
+    submitOrder.disabled =
+        !(
+            nameOK &&
+            wilayaOK &&
+            communeOK &&
+            phoneOK
+        );
+
+}
+
+
+customerName.addEventListener(
+    "input",
+    validateOrderForm
+);
+
+wilayaSelect.addEventListener(
+    "change",
+    validateOrderForm
+);
+
+commune.addEventListener(
+    "input",
+    validateOrderForm
+);
+
+phone.addEventListener(
+    "input",
+    validateOrderForm
+);
+
+
+/* =========================================================
+   RETOUR
+========================================================= */
+
+document
+.getElementById("back6")
+.addEventListener("click", () => {
+
+    showStep(5);
 
 });
 
 
-/* ============================
-   INITIALISATION
-============================ */
+/* =========================================================
+   COMMANDE
+========================================================= */
 
-updateProgress();
+submitOrder.addEventListener(
+    "click",
+    () => {
+
+        const orderNumber =
+            "MH-" +
+            Math.floor(
+                100000 +
+                Math.random() * 900000
+            );
+
+
+        document
+        .getElementById("orderNumber")
+        .textContent =
+            orderNumber;
+
+
+        /*
+        VERSION ACTUELLE :
+        stockage local uniquement.
+
+        Plus tard :
+        envoi vers Supabase.
+        */
+
+        const order = {
+
+            order_number:
+                orderNumber,
+
+            child_name:
+                childName,
+
+            theme:
+                selectedTheme,
+
+            format:
+                selectedFormat,
+
+            price:
+                selectedPrice,
+
+            customer_name:
+                customerName.value.trim(),
+
+            wilaya:
+                wilayaSelect.value,
+
+            commune:
+                commune.value.trim(),
+
+            phone:
+                phone.value.trim(),
+
+            created_at:
+                new Date().toISOString()
+
+        };
+
+
+        console.log(
+            "COMMANDE MYHIKAYA :",
+            order
+        );
+
+
+        try{
+
+            localStorage.setItem(
+                "myhikaya_last_order",
+                JSON.stringify(order)
+            );
+
+        }catch(error){
+
+            console.warn(
+                "LocalStorage indisponible",
+                error
+            );
+
+        }
+
+
+        showStep(7);
+
+    }
+);
+
+
+/* =========================================================
+   SECURITE — ARRET CAMERA SI ON QUITTE LA PAGE
+========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    () => {
+
+        stopCamera();
+
+    }
+);
+
+
+/* =========================================================
+   INITIALISATION
+========================================================= */
+
+console.log(
+    "MyHikaya Cadre — Création V3 chargée."
+);
 
 </script>
 
